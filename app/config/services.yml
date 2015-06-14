@@ -13,3 +13,8 @@ services:
         class: OS\UserBundle\Form\RegistrationFormType
         tags:
             - { name: form.type, alias: os_user_registration }
+
+    chat:
+        class: OS\CommunicationsBundle\Service\Chat
+        arguments:
+            - @doctrine.orm.default_entity_manager

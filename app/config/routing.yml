@@ -1,3 +1,8 @@
+os_communications:
+    resource: "@OSCommunicationsBundle/Controller/"
+    type:     annotation
+    prefix:   /comm
+
 os_game:
     resource: "@OSGameBundle/Controller/"
     type:     annotation
