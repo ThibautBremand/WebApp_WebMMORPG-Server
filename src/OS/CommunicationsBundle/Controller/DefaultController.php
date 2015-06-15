@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 
 use Ratchet\Server\IoServer;
+use Ratchet\Http\HttpServer;
+use Ratchet\WebSocket\WsServer;
 
 class DefaultController extends Controller
 {
@@ -24,8 +26,17 @@ class DefaultController extends Controller
      * @Route("/launch")
      */
     public function launchAction() {
+        require '../vendor/autoload.php';
+
         $chat = $this->get('chat');
-        $server = IoServer::factory($chat, 8080);
+        $server = IoServer::factory(
+            new HttpServer(
+                new WsServer(
+                    $chat
+                )
+            ),
+            8080
+        );
         $server->run();
         return new Response('');
     }
