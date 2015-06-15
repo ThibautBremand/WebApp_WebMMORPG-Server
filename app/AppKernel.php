@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             //OS User
             new OS\UserBundle\OSUserBundle(),
             new OS\GameBundle\OSGameBundle(),
+            new OS\CommunicationsBundle\OSCommunicationsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

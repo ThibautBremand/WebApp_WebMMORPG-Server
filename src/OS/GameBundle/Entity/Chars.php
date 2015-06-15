@@ -35,7 +35,7 @@ class Chars
     private $owner;
 
     /**
-     * @ORM\ManyToOne(targetEntity="OS\UserBundle\Entity\Position", inversedBy="characters")
+     * @ORM\ManyToOne(targetEntity="OS\GameBundle\Entity\Position", inversedBy="characters")
      */
     private $position;
 
