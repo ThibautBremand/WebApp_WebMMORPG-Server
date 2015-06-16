@@ -21,12 +21,18 @@ class Chat implements MessageComponentInterface {
         $this->clients->attach($conn);
 
         echo "New connection! ({$conn->resourceId})\n";
+        echo  $this->clients->count() . " players are currently connected ! \n";
+        $msg = "ENTER:" . $conn->resourceId . ":" . $conn->WebSocket->request->getQuery();
+
+        foreach ($this->clients as $client) {
+            $client->send($msg);
+        }
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
         $numRecv = count($this->clients) - 1;
-        echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
-            , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
+        echo sprintf('Connection %d sending message "%s" to %d other connection%s as nickname %s' . "\n"
+            , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's', $from->WebSocket->request->getQuery());
 
         foreach ($this->clients as $client) {
             if ($from !== $client) {
