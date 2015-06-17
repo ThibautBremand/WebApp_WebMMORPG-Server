@@ -3,6 +3,7 @@
 namespace OS\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use OS\GameBundle\Entity\Chars as Chars;
 
 /**
  * User
@@ -77,10 +78,10 @@ class User
     /**
      * Add characters
      *
-     * @param \OS\UserBundle\Entity\Chars $characters
+     * @param Chars $characters
      * @return User
      */
-    public function addCharacter(\OS\UserBundle\Entity\Chars $characters)
+    public function addCharacter(Chars $characters)
     {
         $this->characters[] = $characters;
 
@@ -90,9 +91,9 @@ class User
     /**
      * Remove characters
      *
-     * @param \OS\UserBundle\Entity\Chars $characters
+     * @param Chars $characters
      */
-    public function removeCharacter(\OS\UserBundle\Entity\Chars $characters)
+    public function removeCharacter(Chars $characters)
     {
         $this->characters->removeElement($characters);
     }
@@ -105,5 +106,12 @@ class User
     public function getCharacters()
     {
         return $this->characters;
+    }
+
+    /**
+     * To string
+     */
+    public function __toString(){
+        return $this->getId() . "-" . $this->getNickname();
     }
 }

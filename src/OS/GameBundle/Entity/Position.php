@@ -166,4 +166,11 @@ class Position
     {
         return $this->characters;
     }
+
+    /**
+     * To string
+     */
+    public function __toString(){
+        return $this->getX() . "-" . $this->getY();
+    }
 }

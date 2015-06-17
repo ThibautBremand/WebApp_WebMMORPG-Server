@@ -27,7 +27,7 @@ class ServerCommand extends ContainerAwareCommand
     {
         require './vendor/autoload.php';
 
-        $chat = $this->getContainer()->get('chat');
+        $chat = $this->getContainer()->get('os_communications.launch');
         $server = IoServer::factory(
             new HttpServer(
                 new WsServer(
