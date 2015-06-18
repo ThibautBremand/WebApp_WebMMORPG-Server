@@ -12,6 +12,9 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Doctrine\ORM\EntityManager;
 
 class Chat extends ContainerAware implements MessageComponentInterface {
+
+    const separator = "%:%";
+
     protected $clients;
     protected $em;
 
@@ -24,35 +27,36 @@ class Chat extends ContainerAware implements MessageComponentInterface {
         // First checks if the user is correctly logged
         $user = $this->em->getRepository('OSUserBundle:User')->findOneByNickname($conn->WebSocket->request->getQuery());
         if (!$user ) {
-            $conn->send("ERROR:Access denied.");
+            $conn->send("ERROR" . self::separator . "Access denied.");
             $conn->close();
         }
         else {
             // The user is registered, we can continue
             // Store the new connection to send messages to later
-            $this->clients->attach($conn);
-            $conn->send("LAUNCH:" . $conn->WebSocket->request->getQuery());
 
-            $character = $this->em->getRepository('OSGameBundle:Chars')->findByOwner($user);
+            // Retrieves characters for the last connected user
+            $characters = $this->em->getRepository('OSGameBundle:Chars')->findByOwner($user);
+
+            $this->clients->attach($conn, $characters[0]);
+            $conn->send("LAUNCH" . self::separator . $conn->WebSocket->request->getQuery());
 
             echo "New connection! ({$conn->resourceId})\n";
             echo $this->clients->count() . " players are currently connected ! \n";
-            $msg = "ENTER:" . $conn->resourceId . ":" . $conn->WebSocket->request->getQuery();
 
-            $connectedUser = array();
+            $arrayCharacters = array();
+            foreach ( $characters as $char ) {
+                array_push($arrayCharacters, $char->toJSON());
+            }
+            $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($arrayCharacters);
 
+            // sends to all the users the new online character
             foreach ($this->clients as $client) {
                 if ( $client != $conn ) {
                     $client->send($msg);
-                    array_push($connectedUser, $this->em->getRepository('OSGameBundle:Chars')->findByOwner($client->WebSocket->request->getQuery()));
+                    $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($this->clients->getInfo()->toJSON()));
                 }
             }
-            // sends the information to be displayed on the last logged in user's screen
-            $users = array();
-            $users[0] = $character[0];
-            $users[1] = $connectedUser;
-            $json = json_encode( (array)$users );
-            echo $json;
+            $conn->send($msg);
         }
     }
 
@@ -71,7 +75,7 @@ class Chat extends ContainerAware implements MessageComponentInterface {
 
     public function onClose(ConnectionInterface $conn) {
         // The connection is closed, remove it, as we can no longer send it messages
-        $msg = "LEAVE:" . $conn->resourceId . ":" . $conn->WebSocket->request->getQuery();
+        $msg = "LEAVE" . self::separator . $conn->resourceId . self::separator . $conn->WebSocket->request->getQuery();
         echo "Connection {$conn->resourceId} has disconnected\n";
 
         foreach ($this->clients as $client) {

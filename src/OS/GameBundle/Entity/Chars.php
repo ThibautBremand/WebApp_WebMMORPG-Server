@@ -44,7 +44,7 @@ class Chars
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -67,7 +67,7 @@ class Chars
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -118,5 +118,18 @@ class Chars
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+     * @return string
+     */
+    public function toJSON()
+    {
+        return (array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'x' => $this->getPosition()->getX(),
+            'y' => $this->getPosition()->getY(),
+        ));
     }
 }
