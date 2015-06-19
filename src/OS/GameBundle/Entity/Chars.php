@@ -3,6 +3,8 @@
 namespace OS\GameBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use OS\UserBundle\Entity\User as User;
+use OS\GameBundle\Entity\Position as Position;
 
 /**
  * Chars
@@ -35,14 +37,14 @@ class Chars
     private $owner;
 
     /**
-     * @ORM\ManyToOne(targetEntity="OS\GameBundle\Entity\Position", inversedBy="characters")
+     * @ORM\ManyToOne(targetEntity="Position", inversedBy="characters")
      */
     private $position;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -65,7 +67,7 @@ class Chars
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -75,10 +77,10 @@ class Chars
     /**
      * Set owner
      *
-     * @param \OS\GameBundle\Entity\User $owner
+     * @param User $owner
      * @return Chars
      */
-    public function setOwner(\OS\GameBundle\Entity\User $owner = null)
+    public function setOwner(User $owner = null)
     {
         $this->owner = $owner;
 
@@ -88,7 +90,7 @@ class Chars
     /**
      * Get owner
      *
-     * @return \OS\GameBundle\Entity\User 
+     * @return User
      */
     public function getOwner()
     {
@@ -98,10 +100,10 @@ class Chars
     /**
      * Set position
      *
-     * @param \OS\UserBundle\Entity\Position $position
+     * @param Position $position
      * @return Chars
      */
-    public function setPosition(\OS\UserBundle\Entity\Position $position = null)
+    public function setPosition(Position $position = null)
     {
         $this->position = $position;
 
@@ -111,10 +113,23 @@ class Chars
     /**
      * Get position
      *
-     * @return \OS\UserBundle\Entity\Position 
+     * @return Position
      */
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+     * @return string
+     */
+    public function toJSON()
+    {
+        return (array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'x' => $this->getPosition()->getX(),
+            'y' => $this->getPosition()->getY(),
+        ));
     }
 }

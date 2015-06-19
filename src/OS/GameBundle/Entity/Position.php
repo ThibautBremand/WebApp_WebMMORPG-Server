@@ -3,6 +3,7 @@
 namespace OS\GameBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use OS\GameBundle\Entity\Chars;
 
 /**
  * Position
@@ -140,7 +141,7 @@ class Position
      * @param \OS\GameBundle\Entity\Chars $characters
      * @return Position
      */
-    public function addCharacter(\OS\GameBundle\Entity\Chars $characters)
+    public function addCharacter(Chars $characters)
     {
         $this->characters[] = $characters;
 
@@ -152,7 +153,7 @@ class Position
      *
      * @param \OS\GameBundle\Entity\Chars $characters
      */
-    public function removeCharacter(\OS\GameBundle\Entity\Chars $characters)
+    public function removeCharacter(Chars $characters)
     {
         $this->characters->removeElement($characters);
     }
@@ -165,5 +166,12 @@ class Position
     public function getCharacters()
     {
         return $this->characters;
+    }
+
+    /**
+     * To string
+     */
+    public function __toString(){
+        return $this->getX() . "-" . $this->getY();
     }
 }

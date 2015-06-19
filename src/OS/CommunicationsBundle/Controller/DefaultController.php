@@ -28,7 +28,7 @@ class DefaultController extends Controller
     public function launchAction() {
         require '../vendor/autoload.php';
 
-        $chat = $this->get('chat');
+        $chat = $this->get('os_communications.launch');
         $server = IoServer::factory(
             new HttpServer(
                 new WsServer(
