@@ -10,6 +10,7 @@ use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Doctrine\ORM\EntityManager;
+use OS\GameBundle\Entity\Position as Position;
 
 class Chat extends ContainerAware implements MessageComponentInterface {
 
@@ -38,7 +39,7 @@ class Chat extends ContainerAware implements MessageComponentInterface {
             $characters = $this->em->getRepository('OSGameBundle:Chars')->findByOwner($user);
 
             $this->clients->attach($conn, $characters[0]);
-            $conn->send("LAUNCH" . self::separator . $conn->WebSocket->request->getQuery());
+            $conn->send("LAUNCH" . self::separator . json_encode($characters[0]->toJSON()));
 
             echo "New connection! ({$conn->resourceId})\n";
             echo $this->clients->count() . " players are currently connected ! \n";
@@ -56,7 +57,6 @@ class Chat extends ContainerAware implements MessageComponentInterface {
                     $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($this->clients->getInfo()->toJSON()));
                 }
             }
-            $conn->send($msg);
         }
     }
 
@@ -65,11 +65,42 @@ class Chat extends ContainerAware implements MessageComponentInterface {
         echo sprintf('Connection %d sending message "%s" to %d other connection%s as nickname %s' . "\n"
             , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's', $from->WebSocket->request->getQuery());
 
-        foreach ($this->clients as $client) {
-            if ($from !== $client) {
-                // The sender is not the receiver, send to each client connected
-                $client->send($msg);
+
+        $message = explode(self::separator, $msg);
+
+        // Resends the message to the clients
+        if ( $message[0] == "MOVE" ) {
+            foreach ($this->clients as $client) {
+                if ($from !== $client) {
+                    // The sender is not the receiver, send to each client connected
+                    $client->send($msg);
+                }
             }
+
+            // Saves the movement in db
+
+            $movingChar = $this->em->getRepository('OSGameBundle:Chars')->findOneByName($message[2]);
+            $position = $movingChar->getPosition();
+            $x = $position->getX();
+            $y = $position->getY();
+
+            switch ($message[1]) {
+                case 0: //down
+                    $movingChar->getPosition()->setY($y + 1);
+                    break;
+                case 1: //left
+                    $movingChar->getPosition()->setX($x - 1);
+                    break;
+                case 2: //right
+                    $movingChar->getPosition()->setX($x + 1);
+                    break;
+                case 3: //up
+                    $movingChar->getPosition()->setY($y - 1);
+                    break;
+                default:
+                    break;
+            }
+            $this->em->flush();
         }
     }
 
