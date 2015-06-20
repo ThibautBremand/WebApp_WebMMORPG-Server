@@ -33,24 +33,27 @@ class Chat extends ContainerAware implements MessageComponentInterface {
         }
         else {
             // The user is registered, we can continue
-            // Store the new connection to send messages to later
+            // Stores the new connection to send it messages later
 
             // Retrieves characters for the last connected user
             $characters = $this->em->getRepository('OSGameBundle:Chars')->findByOwner($user);
 
             $this->clients->attach($conn, $characters[0]);
+
+            // Sends to the user information about his character
             $conn->send("LAUNCH" . self::separator . json_encode($characters[0]->toJSON()));
 
             echo "New connection! ({$conn->resourceId})\n";
             echo $this->clients->count() . " players are currently connected ! \n";
 
+            // Builds information about the new character online to send it to the already connected users
             $arrayCharacters = array();
             foreach ( $characters as $char ) {
                 array_push($arrayCharacters, $char->toJSON());
             }
             $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($arrayCharacters);
 
-            // sends to all the users the new online character
+            // Sends to all the users the new online character
             foreach ($this->clients as $client) {
                 if ( $client != $conn ) {
                     $client->send($msg);
@@ -70,6 +73,7 @@ class Chat extends ContainerAware implements MessageComponentInterface {
 
         // Resends the message to the clients
         if ( $message[0] == "MOVE" ) {
+            // If a user moved, informs the other users that he moved
             foreach ($this->clients as $client) {
                 if ($from !== $client) {
                     // The sender is not the receiver, send to each client connected
@@ -78,7 +82,6 @@ class Chat extends ContainerAware implements MessageComponentInterface {
             }
 
             // Saves the movement in db
-
             $movingChar = $this->em->getRepository('OSGameBundle:Chars')->findOneByName($message[2]);
             $position = $movingChar->getPosition();
             $x = $position->getX();
@@ -106,8 +109,12 @@ class Chat extends ContainerAware implements MessageComponentInterface {
 
     public function onClose(ConnectionInterface $conn) {
         // The connection is closed, remove it, as we can no longer send it messages
-        $msg = "LEAVE" . self::separator . $conn->resourceId . self::separator . $conn->WebSocket->request->getQuery();
         echo "Connection {$conn->resourceId} has disconnected\n";
+
+        $user = $this->em->getRepository('OSUserBundle:User')->findOneByNickname($conn->WebSocket->request->getQuery());
+
+        $characters = $this->em->getRepository('OSGameBundle:Chars')->findByOwner($user);
+        $msg = "LEAVE" . self::separator . $conn->resourceId . self::separator . $conn->WebSocket->request->getQuery() . self::separator . json_encode($characters[0]->toJSON());
 
         foreach ($this->clients as $client) {
             if ($conn !== $client) {
