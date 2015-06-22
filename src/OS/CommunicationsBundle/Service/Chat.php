@@ -55,9 +55,19 @@ class Chat extends ContainerAware implements MessageComponentInterface {
 
             // Sends to all the users the new online character
             foreach ($this->clients as $client) {
+                if ( $client == $conn ) {
+                    $currentMapChar = $this->clients->getInfo()->getPosition()->getMap();
+                }
+            }
+
+            foreach ($this->clients as $client) {
                 if ( $client != $conn ) {
-                    $client->send($msg);
-                    $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($this->clients->getInfo()->toJSON()));
+                    //if (($this->clients->getInfo()->getPosition()->getMap()) === $currentMapChar)  {
+                    if(strcmp($this->clients->getInfo()->getPosition()->getMap(), $currentMapChar) == 0) {
+                        echo "::::::::::::::::::::::::";
+                        $client->send($msg);
+                        $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($this->clients->getInfo()->toJSON()));
+                    }
                 }
             }
         }
