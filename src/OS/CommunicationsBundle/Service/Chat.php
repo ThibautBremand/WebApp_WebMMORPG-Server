@@ -64,7 +64,6 @@ class Chat extends ContainerAware implements MessageComponentInterface {
                 if ( $client != $conn ) {
                     //if (($this->clients->getInfo()->getPosition()->getMap()) === $currentMapChar)  {
                     if(strcmp($this->clients->getInfo()->getPosition()->getMap(), $currentMapChar) == 0) {
-                        echo "::::::::::::::::::::::::";
                         $client->send($msg);
                         $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($this->clients->getInfo()->toJSON()));
                     }
