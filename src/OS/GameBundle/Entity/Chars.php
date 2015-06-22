@@ -130,6 +130,7 @@ class Chars
             'name' => $this->getName(),
             'x' => $this->getPosition()->getX(),
             'y' => $this->getPosition()->getY(),
+            'map' => $this->getPosition()->getMap()->toJSON(),
         ));
     }
 }

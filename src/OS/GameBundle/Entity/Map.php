@@ -110,4 +110,10 @@ class Map
     public function __toString(){
         return $this->getJson();
     }
+
+    public function toJSON()
+    {
+        $str = file_get_contents(__DIR__ . '/../Maps/' . $this->getJson());
+        return json_decode($str, true);
+    }
 }
