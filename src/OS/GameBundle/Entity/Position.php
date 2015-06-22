@@ -23,9 +23,7 @@ class Position
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="map", type="text")
+     * @ORM\ManyToOne(targetEntity="Map", inversedBy="positions")
      */
     private $map;
 
