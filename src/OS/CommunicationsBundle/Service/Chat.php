@@ -114,6 +114,49 @@ class Chat extends ContainerAware implements MessageComponentInterface {
             }
             $this->em->flush();
         }
+
+        if ( $message[0] == "TP" ) {
+            echo "A player is changing map heading to map no " . $message[1] . "\n";
+
+            $newMap = $this->em->getRepository('OSGameBundle:Map')->findOneByCode($message[1]);
+            $movingChar = $this->em->getRepository('OSGameBundle:Chars')->findOneByName($message[3]);
+
+            switch ($message[2]) {
+                case 0: //down
+                    $movingChar->getPosition()->setY(1);   //TODO : Map attribute width height
+                    break;
+                case 1: //left
+                    $movingChar->getPosition()->setX(19);
+                    break;
+                case 2: //right
+                    $movingChar->getPosition()->setX(1);
+                    break;
+                case 3: //up
+                    $movingChar->getPosition()->setY(19);
+                    break;
+                default:
+                    break;
+            }
+            $movingChar->getPosition()->setMap( $newMap );
+            $this->em->flush();
+
+            $from->send("CHANGEMAP" . self::separator . json_encode($movingChar->toJSON()));
+
+           /* foreach ($this->clients as $client) {
+                if ( $client == $from ) {
+                    $msg = "ENTER" . self::separator . $from->resourceId . self::separator . json_encode($this->clients->getInfo()->toJSON());
+                }
+            }
+
+            foreach ($this->clients as $client) {
+                if ( $client != $from ) {
+                    if(strcmp($this->clients->getInfo()->getPosition()->getMap(), $map->getJson()) == 0) {
+                        $client->send($msg);
+                        $from->send("CHARSCONNECTED" . self::separator . $from->resourceId . self::separator . json_encode($this->clients->getInfo()->toJSON()));
+                    }
+                }
+            }*/
+        }
     }
 
     public function onClose(ConnectionInterface $conn) {

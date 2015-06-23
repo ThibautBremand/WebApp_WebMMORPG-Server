@@ -21,8 +21,35 @@
          "width":25,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":20,
+         "name":"MAP1",
+         "objects":[
+                {
+                 "height":38,
+                 "id":1,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":800,
+                 "x":0,
+                 "y":602
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":25,
+         "x":0,
+         "y":0
         }],
- "nextobjectid":1,
+ "nextobjectid":3,
  "orientation":"orthogonal",
  "properties":
     {
