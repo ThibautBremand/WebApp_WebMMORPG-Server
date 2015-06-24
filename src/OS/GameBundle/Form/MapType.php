@@ -15,6 +15,7 @@ class MapType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('code')
             ->add('json')
         ;
     }

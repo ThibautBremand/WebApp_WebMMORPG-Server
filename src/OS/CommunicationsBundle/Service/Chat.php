@@ -51,7 +51,7 @@ class Chat extends ContainerAware implements MessageComponentInterface {
             foreach ( $characters as $char ) {
                 array_push($arrayCharacters, $char->toJSON());
             }
-            $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($arrayCharacters);
+            $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($arrayCharacters[0]);
 
             // Sends to all the users the new online character
             foreach ($this->clients as $client) {
@@ -62,7 +62,6 @@ class Chat extends ContainerAware implements MessageComponentInterface {
 
             foreach ($this->clients as $client) {
                 if ( $client != $conn ) {
-                    //if (($this->clients->getInfo()->getPosition()->getMap()) === $currentMapChar)  {
                     if(strcmp($this->clients->getInfo()->getPosition()->getMap(), $currentMapChar) == 0) {
                         $client->send($msg);
                         $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($this->clients->getInfo()->toJSON()));
@@ -114,6 +113,55 @@ class Chat extends ContainerAware implements MessageComponentInterface {
             }
             $this->em->flush();
         }
+
+        if ( $message[0] == "TP" ) {
+            echo "A player is changing map heading to map no " . $message[1] . "\n";
+
+            $newMap = $this->em->getRepository('OSGameBundle:Map')->findOneByCode($message[1]);
+            $movingChar = $this->em->getRepository('OSGameBundle:Chars')->findOneByName($message[3]);
+
+            switch ($message[2]) {
+                case 0: //down
+                    $movingChar->getPosition()->setY(1);   //TODO : Map attribute width height : -2 to each number <> 0
+                    break;
+                case 1: //left
+                    $movingChar->getPosition()->setX(23);
+                    break;
+                case 2: //right
+                    $movingChar->getPosition()->setX(1);
+                    break;
+                case 3: //up
+                    $movingChar->getPosition()->setY(18);
+                    break;
+                default:
+                    break;
+            }
+            $oldMap = $movingChar->getPosition()->getMap();
+            $movingChar->getPosition()->setMap( $newMap );
+            $this->em->flush();
+
+            $from->send("CHANGEMAP" . self::separator . json_encode($movingChar->toJSON()));
+
+            foreach ($this->clients as $client) {
+                if ( $client == $from ) {
+                    $userLeaving = $this->clients->getInfo()->toJSON();
+                }
+            }
+
+            foreach ($this->clients as $client) {
+                if ( $client != $from ) {
+                    if(strcmp($this->clients->getInfo()->getPosition()->getMap(), $newMap->getJson()) == 0) {
+                        $msg = "ENTER" . self::separator . $client->resourceId . self::separator . json_encode($userLeaving);
+                        $client->send($msg);
+                        $from->send("CHARSCONNECTED" . self::separator . $from->resourceId . self::separator . json_encode($this->clients->getInfo()->toJSON()));
+                    }
+                    else {
+                        $msg = "LEAVE" . self::separator . $from->resourceId . self::separator . $from->WebSocket->request->getQuery() . self::separator . json_encode($userLeaving);
+                        $client->send($msg);
+                    }
+                }
+            }
+        }
     }
 
     public function onClose(ConnectionInterface $conn) {
@@ -123,7 +171,7 @@ class Chat extends ContainerAware implements MessageComponentInterface {
         $user = $this->em->getRepository('OSUserBundle:User')->findOneByNickname($conn->WebSocket->request->getQuery());
 
         $characters = $this->em->getRepository('OSGameBundle:Chars')->findByOwner($user);
-        $msg = "LEAVE" . self::separator . $conn->resourceId . self::separator . $conn->WebSocket->request->getQuery() . self::separator . json_encode($characters[0]->toJSON());
+        $msg = "LOGOUT" . self::separator . $conn->resourceId . self::separator . $conn->WebSocket->request->getQuery() . self::separator . json_encode($characters[0]->toJSON());
 
         foreach ($this->clients as $client) {
             if ($conn !== $client) {

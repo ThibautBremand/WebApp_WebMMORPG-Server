@@ -24,6 +24,13 @@ class Map
     /**
      * @var string
      *
+     * @ORM\Column(name="code", type="string", length=255)
+     */
+    private $code;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="json", type="string", length=255)
      */
     private $json;
@@ -105,6 +112,29 @@ class Map
     public function getPositions()
     {
         return $this->positions;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Map
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 
     public function __toString(){
