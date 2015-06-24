@@ -123,16 +123,16 @@ class Chat extends ContainerAware implements MessageComponentInterface {
 
             switch ($message[2]) {
                 case 0: //down
-                    $movingChar->getPosition()->setY(1);   //TODO : Map attribute width height
+                    $movingChar->getPosition()->setY(1);   //TODO : Map attribute width height : -2 to each number <> 0
                     break;
                 case 1: //left
-                    $movingChar->getPosition()->setX(19);
+                    $movingChar->getPosition()->setX(23);
                     break;
                 case 2: //right
                     $movingChar->getPosition()->setX(1);
                     break;
                 case 3: //up
-                    $movingChar->getPosition()->setY(19);
+                    $movingChar->getPosition()->setY(18);
                     break;
                 default:
                     break;
