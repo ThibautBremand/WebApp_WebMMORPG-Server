@@ -51,7 +51,7 @@ class Chat extends ContainerAware implements MessageComponentInterface {
             foreach ( $characters as $char ) {
                 array_push($arrayCharacters, $char->toJSON());
             }
-            $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($arrayCharacters);
+            $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($arrayCharacters[0]);
 
             // Sends to all the users the new online character
             foreach ($this->clients as $client) {
@@ -62,7 +62,6 @@ class Chat extends ContainerAware implements MessageComponentInterface {
 
             foreach ($this->clients as $client) {
                 if ( $client != $conn ) {
-                    //if (($this->clients->getInfo()->getPosition()->getMap()) === $currentMapChar)  {
                     if(strcmp($this->clients->getInfo()->getPosition()->getMap(), $currentMapChar) == 0) {
                         $client->send($msg);
                         $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($this->clients->getInfo()->toJSON()));
@@ -137,25 +136,31 @@ class Chat extends ContainerAware implements MessageComponentInterface {
                 default:
                     break;
             }
+            $oldMap = $movingChar->getPosition()->getMap();
             $movingChar->getPosition()->setMap( $newMap );
             $this->em->flush();
 
             $from->send("CHANGEMAP" . self::separator . json_encode($movingChar->toJSON()));
 
-           /* foreach ($this->clients as $client) {
+            foreach ($this->clients as $client) {
                 if ( $client == $from ) {
-                    $msg = "ENTER" . self::separator . $from->resourceId . self::separator . json_encode($this->clients->getInfo()->toJSON());
+                    $userLeaving = $this->clients->getInfo()->toJSON();
                 }
             }
 
             foreach ($this->clients as $client) {
                 if ( $client != $from ) {
-                    if(strcmp($this->clients->getInfo()->getPosition()->getMap(), $map->getJson()) == 0) {
+                    if(strcmp($this->clients->getInfo()->getPosition()->getMap(), $newMap->getJson()) == 0) {
+                        $msg = "ENTER" . self::separator . $client->resourceId . self::separator . json_encode($userLeaving);
                         $client->send($msg);
                         $from->send("CHARSCONNECTED" . self::separator . $from->resourceId . self::separator . json_encode($this->clients->getInfo()->toJSON()));
                     }
+                    else {
+                        $msg = "LEAVE" . self::separator . $from->resourceId . self::separator . $from->WebSocket->request->getQuery() . self::separator . json_encode($userLeaving);
+                        $client->send($msg);
+                    }
                 }
-            }*/
+            }
         }
     }
 
@@ -166,7 +171,7 @@ class Chat extends ContainerAware implements MessageComponentInterface {
         $user = $this->em->getRepository('OSUserBundle:User')->findOneByNickname($conn->WebSocket->request->getQuery());
 
         $characters = $this->em->getRepository('OSGameBundle:Chars')->findByOwner($user);
-        $msg = "LEAVE" . self::separator . $conn->resourceId . self::separator . $conn->WebSocket->request->getQuery() . self::separator . json_encode($characters[0]->toJSON());
+        $msg = "LOGOUT" . self::separator . $conn->resourceId . self::separator . $conn->WebSocket->request->getQuery() . self::separator . json_encode($characters[0]->toJSON());
 
         foreach ($this->clients as $client) {
             if ($conn !== $client) {
