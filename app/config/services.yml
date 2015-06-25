@@ -10,7 +10,7 @@ services:
 
 services:
     os_user.registration.form.type:
-        class: OS\UserBundle\Form\RegistrationFormType
+        class: OS\UserBundle\Form\Type\RegistrationFormType
         tags:
             - { name: form.type, alias: os_user_registration }
 

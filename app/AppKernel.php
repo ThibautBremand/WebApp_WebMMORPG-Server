@@ -21,7 +21,7 @@ class AppKernel extends Kernel
             //FOS User
             new FOS\UserBundle\FOSUserBundle(),
 
-            //OS User
+            //OS
             new OS\UserBundle\OSUserBundle(),
             new OS\GameBundle\OSGameBundle(),
             new OS\CommunicationsBundle\OSCommunicationsBundle(),

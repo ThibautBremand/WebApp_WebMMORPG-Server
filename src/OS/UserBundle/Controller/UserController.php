@@ -58,7 +58,7 @@ class UserController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form'   => $form->creatView(),
         );
     }
 

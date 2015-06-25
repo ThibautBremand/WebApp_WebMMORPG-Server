@@ -4,14 +4,15 @@ namespace OS\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use OS\GameBundle\Entity\Chars as Chars;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
  *
- * @ORM\Table()
+ * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="OS\UserBundle\Entity\UserRepository")
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var integer
@@ -21,13 +22,6 @@ class User
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nickname", type="string", length=255)
-     */
-    private $nickname;
 
     /**
     * @ORM\OneToMany(targetEntity="OS\GameBundle\Entity\Chars", mappedBy="owner")
@@ -46,32 +40,11 @@ class User
     }
 
     /**
-     * Set nickname
-     *
-     * @param string $nickname
-     * @return User
-     */
-    public function setNickname($nickname)
-    {
-        $this->nickname = $nickname;
-
-        return $this;
-    }
-
-    /**
-     * Get nickname
-     *
-     * @return string 
-     */
-    public function getNickname()
-    {
-        return $this->nickname;
-    }
-    /**
      * Constructor
      */
     public function __construct()
     {
+        parent::__construct();
         $this->characters = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
