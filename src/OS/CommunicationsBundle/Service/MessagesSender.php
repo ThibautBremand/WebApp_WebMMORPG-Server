@@ -160,8 +160,8 @@ class MessagesSender {
         echo "Connection {$conn->resourceId} has disconnected\n";
 
         $user = $em->getRepository('OSUserBundle:User')->findOneByNickname($conn->WebSocket->request->getQuery());
-
         $characters = $em->getRepository('OSGameBundle:Chars')->findByOwner($user);
+
         $msg = "LOGOUT" . self::separator . $conn->resourceId . self::separator . $conn->WebSocket->request->getQuery() . self::separator . json_encode($characters[0]->toJSON());
 
         foreach ($clients as $client) {

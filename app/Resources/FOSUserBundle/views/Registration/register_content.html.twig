@@ -1,25 +1,45 @@
 {% trans_default_domain 'FOSUserBundle' %}
+<div class="container-fluid">
+    <div class="col-md-offset-1 col-md-10">
+        <h4>Registration</h4>
+        <div class="row">
+            <div class="well">
+                <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
 
-<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
 
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
+                    <div class="row formInput">
+                        <span class="col-md-3">{{ form_label(form.username) }}</span>
+                        {{ form_errors(form.username) }}
+                        <span class="col-md-9">{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}</span>
+                    </div>
 
-    <div>
-        {{ form_label(form.username) }}
-        {{ form_errors(form.username) }}
-        {{ form_widget(form.username) }}
+                    <div class="row formInput">
+                        <span class="col-md-3">{{ form_label(form.email) }}</span>
+                        {{ form_errors(form.email) }}
+                        <span class="col-md-9">{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}</span>
+                    </div>
+
+                    <div class="row formInput">
+                        <span class="col-md-3">{{ form_label(form.plainPassword.first) }}</span>
+                        {{ form_errors(form.plainPassword.first) }}
+                        <span class="col-md-9">{{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control'}}) }}</span>
+                    </div>
+
+                    <div class="row formInput">
+                        <span class="col-md-3">{{ form_label(form.plainPassword.second) }}</span>
+                        {{ form_errors(form.plainPassword.second) }}
+                        <span class="col-md-9">{{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control'}}) }}</span>
+                    </div>
+
+                    <div>
+                        <input class="btn btn-primary" type="submit" value="{{ 'registration.submit'|trans }}" />
+                    </div>
+                    {{ form_end(form) }}
+                </form>
+            </div>
+        </div>
     </div>
-
-
-    <div>
-        {{ form_label(form.email) }}
-        {{ form_errors(form.email) }}
-        {{ form_widget(form.email) }}
-    </div>
-    {{ form_end(form) }}
-    <div>
-        <input type="submit" value="{{ 'registration.submit'|trans }}" />
-    </div>
-</form>
+</div>
