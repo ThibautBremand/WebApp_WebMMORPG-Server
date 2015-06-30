@@ -30,6 +30,11 @@ class MessagesSender {
             // Retrieves characters for the last connected user
             $characters = $em->getRepository('OSGameBundle:Chars')->findByOwner($user);
 
+            if ( $characters == null ) {
+                $conn->send("ERROR" . self::separator . "You don't have any character.");
+                $conn->close();
+                return;
+            }
             $clients->attach($conn, $characters[0]);
 
             // Sends to the user information about his character
