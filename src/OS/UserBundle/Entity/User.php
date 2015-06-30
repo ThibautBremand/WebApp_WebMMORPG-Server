@@ -85,6 +85,6 @@ class User extends BaseUser
      * To string
      */
     public function __toString(){
-        return $this->getId() . "-" . $this->getNickname();
+        return $this->getId() . "-" . $this->getUsername();
     }
 }

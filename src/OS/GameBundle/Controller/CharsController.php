@@ -244,4 +244,19 @@ class CharsController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Displays the characters the connected user has.
+     *
+     * @Route("/mycharacters", name="my_characters")
+     * @Method("GET")
+     * @Template()
+     */
+    public function listUserCharsAction()
+    {
+        $chars = $this->getDoctrine()->getManager()->getRepository('OSGameBundle:Chars')->findByOwner($this->container->get('security.context')->getToken()->getUser());
+
+
+        return $this->render('OSGameBundle:Chars:index.html.twig', array('chars' => $chars));
+    }
 }

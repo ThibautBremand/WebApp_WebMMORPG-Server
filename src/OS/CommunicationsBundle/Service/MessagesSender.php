@@ -18,7 +18,7 @@ class MessagesSender {
 
     public function initConnection(ConnectionInterface $conn, EntityManager $em, \SplObjectStorage $clients) {
         // First checks if the user is correctly logged
-        $user = $em->getRepository('OSUserBundle:User')->findOneByNickname($conn->WebSocket->request->getQuery());
+        $user = $em->getRepository('OSUserBundle:User')->findOneByUsername($conn->WebSocket->request->getQuery());
         if (!$user ) {
             $conn->send("ERROR" . self::separator . "Access denied.");
             $conn->close();
@@ -66,7 +66,7 @@ class MessagesSender {
 
     public function treatMessage( ConnectionInterface $from, $msg, EntityManager $em, \SplObjectStorage $clients ) {
         /*$numRecv = count($this->clients) - 1;
-        echo sprintf('Connection %d sending message "%s" to %d other connection%s as nickname %s' . "\n"
+        echo sprintf('Connection %d sending message "%s" to %d other connection%s as username %s' . "\n"
             , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's', $from->WebSocket->request->getQuery());*/
         $message = explode(self::separator, $msg);
 
@@ -159,7 +159,7 @@ class MessagesSender {
         // The connection is closed, remove it, as we can no longer send it messages
         echo "Connection {$conn->resourceId} has disconnected\n";
 
-        $user = $em->getRepository('OSUserBundle:User')->findOneByNickname($conn->WebSocket->request->getQuery());
+        $user = $em->getRepository('OSUserBundle:User')->findOneByUsername($conn->WebSocket->request->getQuery());
         $characters = $em->getRepository('OSGameBundle:Chars')->findByOwner($user);
 
         $msg = "LOGOUT" . self::separator . $conn->resourceId . self::separator . $conn->WebSocket->request->getQuery() . self::separator . json_encode($characters[0]->toJSON());
