@@ -18,7 +18,9 @@ class MessagesSender {
 
     public function initConnection(ConnectionInterface $conn, EntityManager $em, \SplObjectStorage $clients) {
         // First checks if the user is correctly logged
-        $user = $em->getRepository('OSUserBundle:User')->findOneByUsername($conn->WebSocket->request->getQuery());
+        $req = $conn->WebSocket->request->getQuery();
+        $req = explode("&", urldecode($req));
+        $user = $em->getRepository('OSUserBundle:User')->findOneByUsername($req[1]);
         if (!$user ) {
             $conn->send("ERROR" . self::separator . "Access denied.");
             $conn->close();
@@ -28,27 +30,31 @@ class MessagesSender {
             // Stores the new connection to send it messages later
 
             // Retrieves characters for the last connected user
-            $characters = $em->getRepository('OSGameBundle:Chars')->findByOwner($user);
+            //$characters = $em->getRepository('OSGameBundle:Chars')->findByOwner($user);
 
-            if ( $characters == null ) {
+            /*if ( $characters == null ) {
                 $conn->send("ERROR" . self::separator . "You don't have any character.");
                 $conn->close();
                 return;
-            }
-            $clients->attach($conn, $characters[0]);
+            }*/
+           // $clients->attach($conn, $characters[0]);
+           $connectedChar = $em->getRepository('OSGameBundle:Chars')->findOneByName($req[0]);   //todo : rechercher parmi les characters du user uniquement avec un repo
+           $clients->attach($conn, $connectedChar);
 
             // Sends to the user information about his character
-            $conn->send("LAUNCH" . self::separator . json_encode($characters[0]->toJSON()));
+            // $conn->send("LAUNCH" . self::separator . json_encode($characters[0]->toJSON()));
+            $conn->send("LAUNCH" . self::separator . json_encode($connectedChar->toJSON()));
 
             echo "New connection! ({$conn->resourceId})\n";
             echo $clients->count() . " players are currently connected ! \n";
 
             // Builds information about the new character online to send it to the already connected users
-            $arrayCharacters = array();
+            /*$arrayCharacters = array();
             foreach ( $characters as $char ) {
                 array_push($arrayCharacters, $char->toJSON());
             }
-            $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($arrayCharacters[0]);
+            $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($arrayCharacters[0]);*/
+            $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($connectedChar->toJSON());
 
             // Sends to all the users the new online character
             foreach ($clients as $client) {
@@ -163,11 +169,13 @@ class MessagesSender {
     public function logoutUser (ConnectionInterface $conn, EntityManager $em, \SplObjectStorage $clients) {
         // The connection is closed, remove it, as we can no longer send it messages
         echo "Connection {$conn->resourceId} has disconnected\n";
+        $req = explode("&", urldecode($conn->WebSocket->request->getQuery()));
+        $char = $em->getRepository('OSGameBundle:Chars')->findOneByName($req[0]);
 
-        $user = $em->getRepository('OSUserBundle:User')->findOneByUsername($conn->WebSocket->request->getQuery());
-        $characters = $em->getRepository('OSGameBundle:Chars')->findByOwner($user);
+        //$user = $em->getRepository('OSUserBundle:User')->findOneByUsername($conn->WebSocket->request->getQuery());
+        //$characters = $em->getRepository('OSGameBundle:Chars')->findByOwner($user);
 
-        $msg = "LOGOUT" . self::separator . $conn->resourceId . self::separator . $conn->WebSocket->request->getQuery() . self::separator . json_encode($characters[0]->toJSON());
+        $msg = "LOGOUT" . self::separator . $conn->resourceId . self::separator . $conn->WebSocket->request->getQuery() . self::separator . json_encode($char->toJSON());
 
         foreach ($clients as $client) {
             if ($conn !== $client) {
