@@ -35,6 +35,7 @@ class CharsController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Chars entity.
      *
@@ -58,7 +59,7 @@ class CharsController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -91,11 +92,11 @@ class CharsController extends Controller
     public function newAction()
     {
         $entity = new Chars();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -119,7 +120,7 @@ class CharsController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -145,19 +146,19 @@ class CharsController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Chars entity.
-    *
-    * @param Chars $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Chars entity.
+     *
+     * @param Chars $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Chars $entity)
     {
         $form = $this->createForm(new CharsType(), $entity, array(
@@ -169,6 +170,7 @@ class CharsController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Chars entity.
      *
@@ -197,11 +199,12 @@ class CharsController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Chars entity.
      *
@@ -241,7 +244,6 @@ class CharsController extends Controller
             ->setAction($this->generateUrl('chars_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

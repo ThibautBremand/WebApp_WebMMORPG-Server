@@ -10,10 +10,13 @@ services:
 
 services:
     os_user.registration.form.type:
-        class: OS\UserBundle\Form\RegistrationFormType
+        class: OS\UserBundle\Form\Type\RegistrationFormType
         tags:
             - { name: form.type, alias: os_user_registration }
 
+    os_communications.messages.sender:
+        class: OS\CommunicationsBundle\Service\MessagesSender
+
     os_communications.launch:
         class: OS\CommunicationsBundle\Service\Chat
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager, @os_communications.messages.sender]
