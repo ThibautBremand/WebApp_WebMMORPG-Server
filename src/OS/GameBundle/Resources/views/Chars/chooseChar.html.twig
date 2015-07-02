@@ -1,5 +1,9 @@
 {% extends 'CoreCoreBundle::base.html.twig' %}
 
+{% block head_script %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/osgame/js/charSelection.js') }}"></script>
+{% endblock head_script %}
 
 {% block body %}
         <h1>{{ user }}, here are your characters !</h1>
@@ -16,7 +20,7 @@
                     <td>
                         <ul>
                             <li>
-                                <a href="{{ path('select_char', { 'id': char.id }) }}">Select this character</a>
+                                <a href="javascript:void(0);" onclick="selectChar(this)" cId="{{ char.id }}" cName="{{ char.name }}">Select this character</a>
                             </li>
                         </ul>
                     </td>
@@ -32,5 +36,11 @@
                 </a>
             </li>
         </ul>
+
+        <form style="visibility:hidden" id="formChar" action="/os/index.php" method="POST">
+            <input id="cId" name="id"/>
+            <input id="cName" name="name"/>
+            <input name="user" value="{{ app.user.username }}"/>
+        </form>
 
 {% endblock %}

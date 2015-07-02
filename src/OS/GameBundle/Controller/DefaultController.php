@@ -52,7 +52,7 @@ class DefaultController extends Controller
      */
     public function selectCharAction($id)
     {
-        $char = $this->getDoctrine()->getManager()->getRepository('OSGameBundle:Chars')->find($id);
-        return $this->redirect('/os/index.html?char=' . $char->getName() . '&user=' .  $this->container->get('security.context')->getToken()->getUser()->getUsername());
+        /*$char = $this->getDoctrine()->getManager()->getRepository('OSGameBundle:Chars')->find($id);
+        return $this->redirect('/os/index.html?char=' . $char->getName() . '&user=' .  $this->container->get('security.context')->getToken()->getUser()->getUsername());*/
     }
 }
