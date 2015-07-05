@@ -22,58 +22,55 @@ class MessagesSender {
         $req = explode("&", urldecode($req));
         $user = $em->getRepository('OSUserBundle:User')->findOneByUsername($req[1]);
         if (!$user ) {
-            $conn->send("ERROR" . self::separator . "Access denied.");
+            $conn->send("ERROR" . self::separator . "Access denied. You need to register before playing.");
             $conn->close();
         }
         else {
-            // The user is registered, we can continue
-            // Stores the new connection to send it messages later
-
-            // Retrieves characters for the last connected user
-            //$characters = $em->getRepository('OSGameBundle:Chars')->findByOwner($user);
-
-            /*if ( $characters == null ) {
-                $conn->send("ERROR" . self::separator . "You don't have any character.");
-                $conn->close();
-                return;
-            }*/
-           // $clients->attach($conn, $characters[0]);
-
+            // Checks if the password entered is the right one.
             $encoder_service = $security;
             $encoder = $encoder_service->getEncoder($user);
             if ($encoder->isPasswordValid($user->getPassword(), $req[2], $user->getSalt())) {
+                // Checks if the user is already connected
 
-                $connectedChar = $em->getRepository('OSGameBundle:Chars')->findOneByName($req[0]);   //todo : rechercher parmi les characters du user uniquement avec un repo
-                $clients->attach($conn, $connectedChar);
-
-                // Sends to the user information about his character
-                // $conn->send("LAUNCH" . self::separator . json_encode($characters[0]->toJSON()));
-                $conn->send("LAUNCH" . self::separator . json_encode($connectedChar->toJSON()));
-
-                echo "New connection! ({$conn->resourceId})\n";
-                echo $clients->count() . " players are currently connected ! \n";
-
-                // Builds information about the new character online to send it to the already connected users
-                /*$arrayCharacters = array();
-                foreach ( $characters as $char ) {
-                    array_push($arrayCharacters, $char->toJSON());
-                }
-                $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($arrayCharacters[0]);*/
-                $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($connectedChar->toJSON());
-
-                // Sends to all the users the new online character
+                $alreadyConnected = 0;
                 foreach ($clients as $client) {
-                    if ($client == $conn) {
-                        $currentMapChar = $clients->getInfo()->getPosition()->getMap();
+                    $name = $clients->getInfo()->getOwner()->getUsername();
+                    if (strcmp($name, $req[1]) == 0) {
+                        $conn->send("ERROR" . self::separator . "You are already connected with a character !");
+                        $conn->close();
+                        $alreadyConnected = 1;
                         break;
                     }
                 }
+                if ( $alreadyConnected == 0 ) {
+                    // The user is registered, we can continue
+                    // Stores the new connection to send it messages later
+                    $connectedChar = $em->getRepository('OSGameBundle:Chars')->findOneByName($req[0]);   //todo : rechercher parmi les characters du user uniquement avec un repo
+                    $clients->attach($conn, $connectedChar);
 
-                foreach ($clients as $client) {
-                    if ($client != $conn) {
-                        if (strcmp($clients->getInfo()->getPosition()->getMap(), $currentMapChar) == 0) {
-                            $client->send($msg);
-                            $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($clients->getInfo()->toJSON()));
+                    // Sends to the user information about his character
+                    $conn->send("LAUNCH" . self::separator . json_encode($connectedChar->toJSON()));
+
+                    echo "New connection! ({$conn->resourceId})\n";
+                    echo $clients->count() . " players are currently connected ! \n";
+
+                    // Builds information about the new character online to send it to the already connected users
+                    $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($connectedChar->toJSON());
+
+                    // Sends to all the users the new online character
+                    foreach ($clients as $client) {
+                        if ($client == $conn) {
+                            $currentMapChar = $clients->getInfo()->getPosition()->getMap();
+                            break;
+                        }
+                    }
+
+                    foreach ($clients as $client) {
+                        if ($client != $conn) {
+                            if (strcmp($clients->getInfo()->getPosition()->getMap(), $currentMapChar) == 0) {
+                                $client->send($msg);
+                                $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($clients->getInfo()->toJSON()));
+                            }
                         }
                     }
                 }
@@ -86,9 +83,6 @@ class MessagesSender {
     }
 
     public function treatMessage( ConnectionInterface $from, $msg, EntityManager $em, \SplObjectStorage $clients ) {
-        /*$numRecv = count($this->clients) - 1;
-        echo sprintf('Connection %d sending message "%s" to %d other connection%s as username %s' . "\n"
-            , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's', $from->WebSocket->request->getQuery());*/
         $message = explode(self::separator, $msg);
 
         // Resends the message to the clients
@@ -168,7 +162,9 @@ class MessagesSender {
                         $from->send("CHARSCONNECTED" . self::separator . $from->resourceId . self::separator . json_encode($clients->getInfo()->toJSON()));
                     }
                     else {
-                        $msg = "LEAVE" . self::separator . $from->resourceId . self::separator . $from->WebSocket->request->getQuery() . self::separator . json_encode($userLeaving);
+                        $req = $from->WebSocket->request->getQuery();
+                        $req = explode("&", urldecode($req));
+                        $msg = "LEAVE" . self::separator . $from->resourceId . self::separator . $req[1] . self::separator . json_encode($userLeaving);
                         $client->send($msg);
                     }
                 }
@@ -182,10 +178,7 @@ class MessagesSender {
         $req = explode("&", urldecode($conn->WebSocket->request->getQuery()));
         $char = $em->getRepository('OSGameBundle:Chars')->findOneByName($req[0]);
 
-        //$user = $em->getRepository('OSUserBundle:User')->findOneByUsername($conn->WebSocket->request->getQuery());
-        //$characters = $em->getRepository('OSGameBundle:Chars')->findByOwner($user);
-
-        $msg = "LOGOUT" . self::separator . $conn->resourceId . self::separator . $conn->WebSocket->request->getQuery() . self::separator . json_encode($char->toJSON());
+        $msg = "LOGOUT" . self::separator . $conn->resourceId . self::separator . $req[1] . self::separator . json_encode($char->toJSON());
 
         foreach ($clients as $client) {
             if ($conn !== $client) {
