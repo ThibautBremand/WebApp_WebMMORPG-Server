@@ -16,7 +16,7 @@ class MessagesSender {
 
     const separator = "%:%";
 
-    public function initConnection(ConnectionInterface $conn, EntityManager $em, \SplObjectStorage $clients) {
+    public function initConnection(ConnectionInterface $conn, EntityManager $em, \SplObjectStorage $clients, $security) {
         // First checks if the user is correctly logged
         $req = $conn->WebSocket->request->getQuery();
         $req = explode("&", urldecode($req));
@@ -38,39 +38,49 @@ class MessagesSender {
                 return;
             }*/
            // $clients->attach($conn, $characters[0]);
-           $connectedChar = $em->getRepository('OSGameBundle:Chars')->findOneByName($req[0]);   //todo : rechercher parmi les characters du user uniquement avec un repo
-           $clients->attach($conn, $connectedChar);
 
-            // Sends to the user information about his character
-            // $conn->send("LAUNCH" . self::separator . json_encode($characters[0]->toJSON()));
-            $conn->send("LAUNCH" . self::separator . json_encode($connectedChar->toJSON()));
+            $encoder_service = $security;
+            $encoder = $encoder_service->getEncoder($user);
+            if ($encoder->isPasswordValid($user->getPassword(), $req[2], $user->getSalt())) {
 
-            echo "New connection! ({$conn->resourceId})\n";
-            echo $clients->count() . " players are currently connected ! \n";
+                $connectedChar = $em->getRepository('OSGameBundle:Chars')->findOneByName($req[0]);   //todo : rechercher parmi les characters du user uniquement avec un repo
+                $clients->attach($conn, $connectedChar);
 
-            // Builds information about the new character online to send it to the already connected users
-            /*$arrayCharacters = array();
-            foreach ( $characters as $char ) {
-                array_push($arrayCharacters, $char->toJSON());
-            }
-            $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($arrayCharacters[0]);*/
-            $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($connectedChar->toJSON());
+                // Sends to the user information about his character
+                // $conn->send("LAUNCH" . self::separator . json_encode($characters[0]->toJSON()));
+                $conn->send("LAUNCH" . self::separator . json_encode($connectedChar->toJSON()));
 
-            // Sends to all the users the new online character
-            foreach ($clients as $client) {
-                if ( $client == $conn ) {
-                    $currentMapChar = $clients->getInfo()->getPosition()->getMap();
-                    break;
+                echo "New connection! ({$conn->resourceId})\n";
+                echo $clients->count() . " players are currently connected ! \n";
+
+                // Builds information about the new character online to send it to the already connected users
+                /*$arrayCharacters = array();
+                foreach ( $characters as $char ) {
+                    array_push($arrayCharacters, $char->toJSON());
                 }
-            }
+                $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($arrayCharacters[0]);*/
+                $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($connectedChar->toJSON());
 
-            foreach ($clients as $client) {
-                if ( $client != $conn ) {
-                    if(strcmp($clients->getInfo()->getPosition()->getMap(), $currentMapChar) == 0) {
-                        $client->send($msg);
-                        $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($clients->getInfo()->toJSON()));
+                // Sends to all the users the new online character
+                foreach ($clients as $client) {
+                    if ($client == $conn) {
+                        $currentMapChar = $clients->getInfo()->getPosition()->getMap();
+                        break;
                     }
                 }
+
+                foreach ($clients as $client) {
+                    if ($client != $conn) {
+                        if (strcmp($clients->getInfo()->getPosition()->getMap(), $currentMapChar) == 0) {
+                            $client->send($msg);
+                            $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($clients->getInfo()->toJSON()));
+                        }
+                    }
+                }
+            }
+            else {
+                $conn->send("ERROR" . self::separator . "Wrong password.");
+                $conn->close();
             }
         }
     }
