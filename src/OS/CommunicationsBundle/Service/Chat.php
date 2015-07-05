@@ -33,20 +33,26 @@ class Chat extends ContainerAware implements MessageComponentInterface {
     protected $ms;
 
     /**
+     * @var security.encoder_factory
+     */
+    protected $security;
+
+    /**
      * @param EntityManager $em
      * @param MessagesSender $ms
      */
-    public function __construct(EntityManager $em, MessagesSender $ms) {
+    public function __construct(EntityManager $em, MessagesSender $ms, $security) {
         $this->clients = new \SplObjectStorage;
         $this->em = $em;
         $this->ms = $ms;
+        $this->security = $security;
     }
 
     /**
      * @param ConnectionInterface $conn
      */
     public function onOpen(ConnectionInterface $conn) {
-        $this->ms->initConnection( $conn, $this->em, $this->clients );
+        $this->ms->initConnection( $conn, $this->em, $this->clients, $this->security );
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
