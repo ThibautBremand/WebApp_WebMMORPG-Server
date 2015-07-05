@@ -54,7 +54,8 @@ class MessagesSender {
                     echo $clients->count() . " players are currently connected ! \n";
 
                     // Builds information about the new character online to send it to the already connected users
-                    $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . json_encode($connectedChar->toJSON());
+                    $req = explode("&", urldecode($conn->WebSocket->request->getQuery()));
+                    $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . $req[1] . self::separator . json_encode($connectedChar->toJSON());
 
                     // Sends to all the users the new online character
                     foreach ($clients as $client) {
@@ -66,8 +67,8 @@ class MessagesSender {
 
                     foreach ($clients as $client) {
                         if ($client != $conn) {
+                            $client->send($msg);
                             if (strcmp($clients->getInfo()->getPosition()->getMap(), $currentMapChar) == 0) {
-                                $client->send($msg);
                                 $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($clients->getInfo()->toJSON()));
                             }
                         }
@@ -84,19 +85,24 @@ class MessagesSender {
     public function treatMessage( ConnectionInterface $from, $msg, EntityManager $em, \SplObjectStorage $clients ) {
         $message = explode(self::separator, $msg);
 
+        // todo : check if legal move here
         // Resends the message to the clients
         if ( $message[0] == "MOVE" ) {
+            $movingChar = $em->getRepository('OSGameBundle:Chars')->findOneByName($message[2]);
+            $position = $movingChar->getPosition();
             // If a user moved, informs the other users that he moved
             foreach ($clients as $client) {
                 if ($from !== $client) {
-                    // The sender is not the receiver, send to each client connected
-                    $client->send($msg);
+                    // todo : send the info for the users in the current and the neighbours maps only
+                    // We don't send the moving message to the characters that are on another map
+                    //if (strcmp($clients->getInfo()->getPosition()->getMap(), $position->getMap()) == 0) {
+                        // The sender is not the receiver, send to each client connected
+                        $client->send($msg);
+                    //}
                 }
             }
 
             // Saves the movement in db
-            $movingChar = $em->getRepository('OSGameBundle:Chars')->findOneByName($message[2]);
-            $position = $movingChar->getPosition();
             $x = $position->getX();
             $y = $position->getY();
 
