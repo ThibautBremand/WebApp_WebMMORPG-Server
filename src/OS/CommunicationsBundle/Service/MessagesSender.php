@@ -31,7 +31,6 @@ class MessagesSender {
             $encoder = $encoder_service->getEncoder($user);
             if ($encoder->isPasswordValid($user->getPassword(), $req[2], $user->getSalt())) {
                 // Checks if the user is already connected
-
                 $alreadyConnected = 0;
                 foreach ($clients as $client) {
                     $name = $clients->getInfo()->getOwner()->getUsername();
@@ -157,7 +156,7 @@ class MessagesSender {
             foreach ($clients as $client) {
                 if ( $client != $from ) {
                     if(strcmp($clients->getInfo()->getPosition()->getMap(), $newMap->getJson()) == 0) {
-                        $msg = "ENTER" . self::separator . $client->resourceId . self::separator . json_encode($userLeaving);
+                        $msg = "COMING" . self::separator . $client->resourceId . self::separator . json_encode($userLeaving);
                         $client->send($msg);
                         $from->send("CHARSCONNECTED" . self::separator . $from->resourceId . self::separator . json_encode($clients->getInfo()->toJSON()));
                     }
