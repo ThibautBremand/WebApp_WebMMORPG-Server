@@ -1,17 +1,22 @@
-{% block stylesheets %}
-    <link href="{{ asset('bundles/corecore/bootstrap-3.3.5-dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
-    <link href="{{ asset('bundles/corecore//css/core.css') }}" type="text/css" rel="stylesheet" />
-{% endblock %}
+<!DOCTYPE html>
+<html>
 
-{% block head_script %}
-    <script type="text/javascript" src="{{ asset('bundles/corecore/jquery-1.11.3/jquery-1.11.3.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/corecore/bootstrap-3.3.5-dist/js/bootstrap.min.js') }}"></script>
-{% endblock head_script %}
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block head_script %}
+        <script type="text/javascript" src="{{ asset('bundles/corecore/jquery-1.11.3/jquery-1.11.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/corecore/bootstrap-3.3.5-dist/js/bootstrap.min.js') }}"></script>
+    {% endblock head_script %}
 
-{% block head %}
-
-{% endblock %}
-
-{% block body %}
-
-{% endblock body %}
+    {% block stylesheets %}
+        <link href="{{ asset('bundles/corecore/bootstrap-3.3.5-dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('bundles/corecore//css/core.css') }}" type="text/css" rel="stylesheet" />
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+    {% block body %}{% endblock %}
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

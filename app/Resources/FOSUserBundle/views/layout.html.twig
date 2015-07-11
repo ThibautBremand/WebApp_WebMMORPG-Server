@@ -1,25 +1,7 @@
 {% extends 'CoreCoreBundle::base.html.twig' %}
 
-{% block head %}
-    {{ parent() }}
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset="UTF-8" />
-
-            {% block stylesheets %}
-                {{ parent() }}
-            {% endblock %}
-
-            {% block head_script %}
-                {{ parent() }}
-            {% endblock head_script %}
-
-        </head>
-{% endblock %}
     {% block body %}
     {{ parent() }}
-    <body>
         <div>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
@@ -45,6 +27,4 @@
             {% block fos_user_content %}
             {% endblock fos_user_content %}
         </div>
-    </body>
-</html>
     {% endblock %}
