@@ -27,25 +27,25 @@
 
                 {{ form_start(form) }}
                 {{ form_errors(form) }}
+                <div class="container-fluid">
+                    <div class="row">
+                        <span class="col-md-3">{{ form_label(form.name) }}</span>
+                        {{ form_errors(form.name) }}
+                        <span class="col-md-9">{{ form_widget(form.name, { 'attr': {'class': 'form-control'}}) }}</span>
+                    </div>
 
-                <div class="row">
-                    <span class="col-md-3">{{ form_label(form.name) }}</span>
-                    {{ form_errors(form.name) }}
-                    <span class="col-md-9">{{ form_widget(form.name, { 'attr': {'class': 'form-control'}}) }}</span>
+                    <div class="row">
+                        <span class="col-md-3">{{ form_label(form.owner) }}</span>
+                        {{ form_errors(form.owner) }}
+                        <span class="col-md-9">{{ form_widget(form.owner, { 'attr': {'class': 'form-control'}}) }}</span>
+                    </div>
+
+                    <div class="row">
+                        <span class="col-md-3">{{ form_label(form.position) }}</span>
+                        {{ form_errors(form.position) }}
+                        <span class="col-md-9">{{ form_widget(form.position, { 'attr': {'class': 'form-control'}}) }}</span>
+                    </div>
                 </div>
-
-                <div class="row">
-                    <span class="col-md-3">{{ form_label(form.owner) }}</span>
-                    {{ form_errors(form.owner) }}
-                    <span class="col-md-9">{{ form_widget(form.owner, { 'attr': {'class': 'form-control'}}) }}</span>
-                </div>
-
-                <div class="row">
-                    <span class="col-md-3">{{ form_label(form.position) }}</span>
-                    {{ form_errors(form.position) }}
-                    <span class="col-md-9">{{ form_widget(form.position, { 'attr': {'class': 'form-control'}}) }}</span>
-                </div>
-
                 <input type="submit" />
 
                 {{ form_end(form) }}
