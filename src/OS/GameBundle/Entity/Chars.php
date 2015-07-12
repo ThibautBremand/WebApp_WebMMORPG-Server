@@ -37,9 +37,17 @@ class Chars
     private $owner;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Position", inversedBy="characters")
+     * @ORM\OneToOne(targetEntity="OS\GameBundle\Entity\Position", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $position;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tileFormula", type="text")
+     */
+    private $tileFormula;
 
     /**
      * Get id
@@ -132,5 +140,28 @@ class Chars
             'y' => $this->getPosition()->getY(),
             'map' => $this->getPosition()->getMap()->toJSON(),
         ));
+    }
+
+    /**
+     * Set tileFormula
+     *
+     * @param string $tileFormula
+     * @return Chars
+     */
+    public function setTileFormula($tileFormula)
+    {
+        $this->tileFormula = $tileFormula;
+
+        return $this;
+    }
+
+    /**
+     * Get tileFormula
+     *
+     * @return string 
+     */
+    public function getTileFormula()
+    {
+        return $this->tileFormula;
     }
 }

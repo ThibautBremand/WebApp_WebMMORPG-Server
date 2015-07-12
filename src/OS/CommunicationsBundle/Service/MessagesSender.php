@@ -56,7 +56,7 @@ class MessagesSender {
                     // Builds information about the new character online to send it to the already connected users
                     $req = explode("&", urldecode($conn->WebSocket->request->getQuery()));
                     $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . $req[1] . self::separator . json_encode($connectedChar->toJSON());
-
+                    $msgComing = "COMING" . self::separator . $conn->resourceId . self::separator . json_encode($connectedChar->toJSON());
                     // Sends to all the users the new online character
                     foreach ($clients as $client) {
                         if ($client == $conn) {
@@ -68,8 +68,10 @@ class MessagesSender {
                     foreach ($clients as $client) {
                         if ($client != $conn) {
                             $client->send($msg);
-                            if (strcmp($clients->getInfo()->getPosition()->getMap(), $currentMapChar) == 0) {
+                            $mapToCompare = $clients->getInfo()->getPosition()->getMap();
+                            if (strcmp($mapToCompare, $currentMapChar) == 0) {
                                 $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($clients->getInfo()->toJSON()));
+                                $client->send($msgComing);
                             }
                         }
                     }

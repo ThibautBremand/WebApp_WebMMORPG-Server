@@ -2,6 +2,7 @@
 
 namespace OS\GameBundle\Controller;
 
+use OS\GameBundle\Entity\Position;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -51,6 +52,14 @@ class CharsController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $newPos = new Position();
+            $newPos->setX(14);
+            $newPos->setY(14);
+            $newPos->setMap($em->getRepository('OSGameBundle:Map')->find(3));
+            $em->persist($newPos);
+            $em->flush();
+
+            $entity->setPosition($newPos);
             $em->persist($entity);
             $em->flush();
 
