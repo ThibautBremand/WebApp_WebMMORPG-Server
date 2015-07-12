@@ -328,6 +328,7 @@ $(document).ready(function() {
         });
         jHash.val(params);
         console.log ( params );
+        $("#os_gamebundle_chars_tileFormula").val( JSON.stringify(params) );
     }
     
     // Cache images
