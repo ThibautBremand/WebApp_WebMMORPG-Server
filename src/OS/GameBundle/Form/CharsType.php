@@ -18,6 +18,7 @@ class CharsType extends AbstractType
             ->add('name')
             ->add('owner')
             ->add('position')
+            ->add('tileFormula')
         ;
     }
     

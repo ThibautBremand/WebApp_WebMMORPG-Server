@@ -63,10 +63,8 @@ input[type=button], input[type=reset] {
 }
 
 #chooser {
-    width: 30%;
     min-width: 200px;
     padding-left: 20px;
-    float: left;
     font-size: 14pt;
     margin-top:5em;
 }
