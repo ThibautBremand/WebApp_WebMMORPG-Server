@@ -37,7 +37,7 @@ class Chars
     private $owner;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Position", inversedBy="characters")
+     * @ORM\ManyToOne(targetEntity="Position", inversedBy="characters", cascade={"persist"})
      */
     private $position;
 

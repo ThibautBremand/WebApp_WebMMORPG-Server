@@ -17,8 +17,7 @@ class CharsType extends AbstractType
         $builder
             ->add('name')
             ->add('owner')
-            ->add('position')
-            ->add('tileFormula')
+            ->add('tileFormula', 'hidden')
         ;
     }
     

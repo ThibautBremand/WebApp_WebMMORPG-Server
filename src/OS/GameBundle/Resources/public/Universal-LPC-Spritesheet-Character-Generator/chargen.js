@@ -4,6 +4,7 @@ $(document).ready(function() {
 
     // Get querystring paramters
     var params = jHash.val();
+    $("#os_gamebundle_chars_tileFormula").val( JSON.stringify(params) );
     
     // on hash (url) change event, interpret and redraw
     jHash.change(function() {
