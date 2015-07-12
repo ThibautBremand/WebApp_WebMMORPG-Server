@@ -56,6 +56,9 @@ class CharsController extends Controller
             $newPos->setX(14);
             $newPos->setY(14);
             $newPos->setMap($em->getRepository('OSGameBundle:Map')->find(3));
+            $em->persist($newPos);
+            $em->flush();
+
             $entity->setPosition($newPos);
             $em->persist($entity);
             $em->flush();

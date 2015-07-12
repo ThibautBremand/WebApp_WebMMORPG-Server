@@ -41,11 +41,6 @@ class Position
      */
     private $y;
 
-    /**
-     * @ORM\OneToMany(targetEntity="OS\GameBundle\Entity\Chars", mappedBy="position")
-     */
-    private $characters;
-
 
     /**
      * Get id
@@ -130,7 +125,7 @@ class Position
      */
     public function __construct()
     {
-        $this->characters = new \Doctrine\Common\Collections\ArrayCollection();
+        //$this->characters = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -139,32 +134,22 @@ class Position
      * @param \OS\GameBundle\Entity\Chars $characters
      * @return Position
      */
-    public function addCharacter(Chars $characters)
+    /*public function addCharacter(Chars $characters)
     {
         $this->characters[] = $characters;
 
         return $this;
-    }
+    }*/
 
     /**
      * Remove characters
      *
      * @param \OS\GameBundle\Entity\Chars $characters
      */
-    public function removeCharacter(Chars $characters)
+    /*public function removeCharacter(Chars $characters)
     {
         $this->characters->removeElement($characters);
-    }
-
-    /**
-     * Get characters
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCharacters()
-    {
-        return $this->characters;
-    }
+    }*/
 
     /**
      * To string

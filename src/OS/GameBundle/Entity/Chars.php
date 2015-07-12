@@ -37,7 +37,8 @@ class Chars
     private $owner;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Position", inversedBy="characters", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="OS\GameBundle\Entity\Position", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $position;
 
