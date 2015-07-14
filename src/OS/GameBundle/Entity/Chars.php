@@ -139,6 +139,7 @@ class Chars
             'x' => $this->getPosition()->getX(),
             'y' => $this->getPosition()->getY(),
             'map' => $this->getPosition()->getMap()->toJSON(),
+            'tileFormula' => $this->getTileFormula(),
         ));
     }
 
