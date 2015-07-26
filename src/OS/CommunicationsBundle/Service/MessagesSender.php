@@ -15,6 +15,10 @@ use Doctrine\ORM\EntityManager;
 class MessagesSender {
 
     const separator = "%:%";
+    const MOV_UP = 0;
+    const MOV_LEFT = 1;
+    const MOV_DOWN = 2;
+    const MOV_RIGHT = 3;
 
     public function initConnection(ConnectionInterface $conn, EntityManager $em, \SplObjectStorage $clients, $security) {
         // First checks if the user is correctly logged
@@ -109,16 +113,16 @@ class MessagesSender {
             $y = $position->getY();
 
             switch ($message[1]) {
-                case 0: //down
+                case self::MOV_DOWN: //down
                     $movingChar->getPosition()->setY($y + 1);
                     break;
-                case 1: //left
+                case self::MOV_LEFT: //left
                     $movingChar->getPosition()->setX($x - 1);
                     break;
-                case 2: //right
+                case self::MOV_RIGHT: //right
                     $movingChar->getPosition()->setX($x + 1);
                     break;
-                case 3: //up
+                case self::MOV_UP: //up
                     $movingChar->getPosition()->setY($y - 1);
                     break;
                 default:
@@ -134,16 +138,16 @@ class MessagesSender {
             $movingChar = $em->getRepository('OSGameBundle:Chars')->findOneByName($message[3]);
 
             switch ($message[2]) {
-                case 0: //down
+                case self::MOV_DOWN: //down
                     $movingChar->getPosition()->setY(1);   //TODO : Map attribute width height : -2 to each number <> 0
                     break;
-                case 1: //left
+                case self::MOV_LEFT: //left
                     $movingChar->getPosition()->setX(23);
                     break;
-                case 2: //right
+                case self::MOV_RIGHT: //right
                     $movingChar->getPosition()->setX(1);
                     break;
-                case 3: //up
+                case self::MOV_UP: //up
                     $movingChar->getPosition()->setY(18);
                     break;
                 default:
