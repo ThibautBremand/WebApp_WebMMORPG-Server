@@ -355,7 +355,6 @@ $(document).ready(function() {
             callback(images[imgRef]);
             return images[imgRef];
         } else {
-
             // Load image if not in cache
             var img = new Image();
             //img.src = "Universal-LPC-spritesheet/" + imgRef;
