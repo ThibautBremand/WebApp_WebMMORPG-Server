@@ -168,12 +168,13 @@ class MessagesSender {
                 }
             }
 
+            $arrayConnectedChars = array();
             foreach ($clients as $client) {
                 if ( $client != $from ) {
                     if(strcmp($clients->getInfo()->getPosition()->getMap(), $newMap->getJson()) == 0) {
                         $msg = "COMING" . self::separator . $client->resourceId . self::separator . json_encode($userLeaving);
                         $client->send($msg);
-                        $from->send("CHARSCONNECTED" . self::separator . $from->resourceId . self::separator . json_encode($clients->getInfo()->toJSON()));
+                        array_push($arrayConnectedChars, $clients->getInfo()->toJSON());
                     }
                     else {
                         $req = $from->WebSocket->request->getQuery();
@@ -182,6 +183,9 @@ class MessagesSender {
                         $client->send($msg);
                     }
                 }
+            }
+            if ( count ($arrayConnectedChars) > 0 ) {
+                $from->send("CHARSCONNECTED" . self::separator . $from->resourceId . self::separator . json_encode($arrayConnectedChars));
             }
         }
     }
