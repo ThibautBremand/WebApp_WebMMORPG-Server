@@ -68,16 +68,19 @@ class MessagesSender {
                             break;
                         }
                     }
-
+                    $arrayConnectedChars = array();
                     foreach ($clients as $client) {
                         if ($client != $conn) {
                             $client->send($msg);
                             $mapToCompare = $clients->getInfo()->getPosition()->getMap();
                             if (strcmp($mapToCompare, $currentMapChar) == 0) {
-                                $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($clients->getInfo()->toJSON()));
+                                array_push($arrayConnectedChars, $clients->getInfo()->toJSON());
                                 $client->send($msgComing);
                             }
                         }
+                    }
+                    if ( count ($arrayConnectedChars) > 0 ) {
+                        $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($arrayConnectedChars));
                     }
                 }
             }
