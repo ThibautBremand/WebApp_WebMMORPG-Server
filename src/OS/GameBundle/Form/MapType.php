@@ -17,6 +17,7 @@ class MapType extends AbstractType
         $builder
             ->add('code')
             ->add('json')
+            ->add('bgMusic')
         ;
     }
     

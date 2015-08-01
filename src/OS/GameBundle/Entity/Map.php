@@ -36,6 +36,13 @@ class Map
     private $json;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="backgroundMusic", type="string", length=255)
+     */
+    private $bgMusic;
+
+    /**
      * @ORM\OneToMany(targetEntity="OS\GameBundle\Entity\Position", mappedBy="map")
      */
     private $positions;
@@ -144,6 +151,31 @@ class Map
     public function toJSON()
     {
         $str = file_get_contents(__DIR__ . '/../Maps/' . $this->getJson());
-        return json_decode($str, true);
+        $json = json_decode($str, true);
+        $json['bgMusic'] = $this->getBgMusic();
+        return $json;
+    }
+
+    /**
+     * Set bgMusic
+     *
+     * @param string $bgMusic
+     * @return Map
+     */
+    public function setBgMusic($bgMusic)
+    {
+        $this->bgMusic = $bgMusic;
+
+        return $this;
+    }
+
+    /**
+     * Get bgMusic
+     *
+     * @return string 
+     */
+    public function getBgMusic()
+    {
+        return $this->bgMusic;
     }
 }
