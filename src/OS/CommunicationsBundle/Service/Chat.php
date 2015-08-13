@@ -52,14 +52,20 @@ class Chat extends ContainerAware implements MessageComponentInterface {
      * @param ConnectionInterface $conn
      */
     public function onOpen(ConnectionInterface $conn) {
+        $this->em->getConnection()->close();
+        $this->em->getConnection()->connect();
         $this->ms->initConnection( $conn, $this->em, $this->clients, $this->security );
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
+        $this->em->getConnection()->close();
+        $this->em->getConnection()->connect();
         $this->ms->treatMessage( $from, $msg, $this->em, $this->clients );
     }
 
     public function onClose(ConnectionInterface $conn) {
+        $this->em->getConnection()->close();
+        $this->em->getConnection()->connect();
         $this->ms->logoutUser($conn, $this->em, $this->clients );
     }
 
