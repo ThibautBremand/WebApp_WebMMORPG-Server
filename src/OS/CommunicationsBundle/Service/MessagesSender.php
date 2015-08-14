@@ -196,14 +196,21 @@ class MessagesSender {
         $req = explode("&", urldecode($conn->WebSocket->request->getQuery()));
         $char = $em->getRepository('OSGameBundle:Chars')->findOneByName($req[0]);
 
-        $msg = "LOGOUT" . self::separator . $conn->resourceId . self::separator . $req[1] . self::separator . json_encode($char->toJSON());
+        if ($char != null) {
+            try {
+                $charjson = $char->toJSON();
+                $msg = "LOGOUT" . self::separator . $conn->resourceId . self::separator . $req[1] . self::separator . json_encode($charjson);
 
-        foreach ($clients as $client) {
-            if ($conn !== $client) {
-                $client->send($msg);
+                foreach ($clients as $client) {
+                    if ($conn !== $client) {
+                        $client->send($msg);
+                    }
+                }
+                $clients->detach($conn);
+            } catch (Exception $e) {
+                echo "Error sur le logout ! \n";
             }
         }
-        $clients->detach($conn);
     }
 
 }

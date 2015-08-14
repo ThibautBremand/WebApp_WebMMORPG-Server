@@ -20,3 +20,7 @@ services:
     os_communications.launch:
         class: OS\CommunicationsBundle\Service\Chat
         arguments: [@doctrine.orm.entity_manager, @os_communications.messages.sender, @security.encoder_factory]
+
+    os_communications.keepdb:
+        class: OS\CommunicationsBundle\Service\DBKeeper
+        arguments: [@doctrine.orm.entity_manager]
