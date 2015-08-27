@@ -47,6 +47,13 @@ class Map
      */
     private $positions;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fullJson", type="text")
+     */
+    private $fullJson;
+
 
     /**
      * Get id
@@ -177,5 +184,28 @@ class Map
     public function getBgMusic()
     {
         return $this->bgMusic;
+    }
+
+    /**
+     * Set fullJson
+     *
+     * @param string $fullJson
+     * @return Map
+     */
+    public function setFullJson($fullJson)
+    {
+        $this->fullJson = $fullJson;
+
+        return $this;
+    }
+
+    /**
+     * Get fullJson
+     *
+     * @return string 
+     */
+    public function getFullJson()
+    {
+        return $this->fullJson;
     }
 }

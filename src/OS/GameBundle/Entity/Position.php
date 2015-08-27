@@ -155,6 +155,6 @@ class Position
      * To string
      */
     public function __toString(){
-        return $this->getX() . "-" . $this->getY();
+        return $this->getId() . " : " . $this->getX() . "-" . $this->getY();
     }
 }

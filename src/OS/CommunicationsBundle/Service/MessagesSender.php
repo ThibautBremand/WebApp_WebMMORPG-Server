@@ -8,6 +8,7 @@
 
 namespace OS\CommunicationsBundle\Service;
 
+use Doctrine\ORM\Query;
 use Ratchet\ConnectionInterface;
 use Doctrine\ORM\EntityManager;
 
@@ -213,4 +214,23 @@ class MessagesSender {
         }
     }
 
+    public function moveMonsters(EntityManager $em, \SplObjectStorage $clients) {
+        $monsters = $em->getRepository('OSGameBundle:Monster')->findAll();
+        $movingMonsters = array_rand($monsters, ceil(count($monsters) / 10));
+        if (count($movingMonsters) > 0) {
+            $movingMonstersJson = array();
+            foreach($monsters as $mm) {
+                if ($mm->move()) {
+                    $em->flush();
+                    array_push($movingMonstersJson, $mm->toJSON());
+                }
+            }
+            if (count($movingMonstersJson) > 0) {
+                $msg = "MONSTERSMOVEMENT" . self::separator . json_encode($movingMonstersJson);
+                foreach ($clients as $client) {
+                    $client->send($msg);
+                }
+            }
+        }
+    }
 }

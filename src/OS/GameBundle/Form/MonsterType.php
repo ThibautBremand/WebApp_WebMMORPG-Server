@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class MapType extends AbstractType
+class MonsterType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,10 +15,11 @@ class MapType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('code')
-            ->add('json')
-            ->add('bgMusic')
-            ->add('fullJson')
+            ->add('name')
+            ->add('tileFormula')
+            ->add('level')
+            ->add('alive')
+            ->add('step')
         ;
     }
     
@@ -28,7 +29,7 @@ class MapType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'OS\GameBundle\Entity\Map'
+            'data_class' => 'OS\GameBundle\Entity\Monster'
         ));
     }
 
@@ -37,6 +38,6 @@ class MapType extends AbstractType
      */
     public function getName()
     {
-        return 'os_gamebundle_map';
+        return 'os_gamebundle_monster';
     }
 }
