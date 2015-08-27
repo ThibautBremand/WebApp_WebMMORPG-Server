@@ -213,4 +213,11 @@ class MessagesSender {
         }
     }
 
+    public function moveMonsters(EntityManager $em, \SplObjectStorage $clients) {
+        $msg = "MONSTERSMOVEMENT" . self::separator . "coucou";
+        foreach ($clients as $client) {
+            $client->send($msg);
+        }
+    }
+
 }

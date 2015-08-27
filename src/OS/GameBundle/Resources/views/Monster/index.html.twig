@@ -1,13 +1,15 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Chars list</h1>
+    <h1>Monster list</h1>
 
     <table class="records_list">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Tileformula</th>
+                <th>Level</th>
                 <th>Position</th>
                 <th>Actions</th>
             </tr>
@@ -15,16 +17,18 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('chars_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('monster_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.name }}</td>
+                <td>{{ entity.tileFormula }}</td>
+                <td>{{ entity.level }}</td>
                 <td>{{ entity.position }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('chars_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('monster_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('chars_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('monster_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -35,7 +39,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('chars_new') }}">
+            <a href="{{ path('monster_new') }}">
                 Create a new entry
             </a>
         </li>

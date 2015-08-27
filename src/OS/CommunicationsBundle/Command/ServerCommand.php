@@ -7,6 +7,7 @@
  * Time: 15:39
  */
 namespace OS\CommunicationsBundle\Command;
+
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -27,7 +28,10 @@ class ServerCommand extends ContainerAwareCommand
     {
         require './vendor/autoload.php';
 
+        //$mb = new MonsterBehavior();
+
         $chat = $this->getContainer()->get('os_communications.launch');
+
         $server = IoServer::factory(
             new HttpServer(
                 new WsServer(
@@ -36,6 +40,12 @@ class ServerCommand extends ContainerAwareCommand
             ),
             8080
         );
+
+        $server->loop->addPeriodicTimer(5, array($chat, 'monstersMovement'));
+
+        // Changes php's security settings to allow server launch
+        set_time_limit(0);
+
         $server->run();
     }
 }

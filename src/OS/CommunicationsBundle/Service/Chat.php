@@ -6,12 +6,13 @@
  * Time: 15:38
  */
 namespace OS\CommunicationsBundle\Service;
+
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Doctrine\ORM\EntityManager;
-use OS\GameBundle\Entity\Position as Position;
-use OS\CommunicationsBundle\Service\MessagesSender;
 
 class Chat extends ContainerAware implements MessageComponentInterface {
 
@@ -71,8 +72,18 @@ class Chat extends ContainerAware implements MessageComponentInterface {
 
     public function onError(ConnectionInterface $conn, \Exception $e) {
         echo "An error has occurred: {$e->getMessage()}\n";
-
         $conn->close();
+    }
+
+    public function monstersMovement() {
+        try {
+            $this->em->getConnection()->close();
+            $this->em->getConnection()->connect();
+            $this->ms->moveMonsters($this->em, $this->clients);
+        }
+        catch(Exception $e) {
+            echo $e->getTraceAsString();
+        }
     }
 
 }
