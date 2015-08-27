@@ -3,6 +3,7 @@
 namespace OS\GameBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use OS\CommunicationsBundle\Service\MessagesSender;
 
 /**
  * Monster
@@ -54,6 +55,13 @@ class Monster
      * @ORM\Column(name="alive", type="boolean")
      */
     private $alive;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="step", type="integer")
+     */
+    private $step;
 
 
     /**
@@ -179,5 +187,77 @@ class Monster
     public function getAlive()
     {
         return $this->alive;
+    }
+
+    /**
+     * Set step
+     *
+     * @param integer $step
+     * @return Monster
+     */
+    public function setStep($step)
+    {
+        $this->step = $step;
+
+        return $this;
+    }
+
+    /**
+     * Get step
+     *
+     * @return integer
+     */
+    public function getStep()
+    {
+        return $this->step;
+    }
+
+    /**
+     * Moves a monster
+     */
+    public function move() {
+        $direction = rand(1,4);
+        $height = json_decode($this->getPosition()->getMap()->getFullJson())->height;
+        $width = json_decode($this->getPosition()->getMap()->getFullJson())->width;
+        switch($direction) {
+            case MessagesSender::MOV_UP:
+                if ($this->getPosition()->getY() >= 0 + $this->step) {
+                    $this->getPosition()->setY($this->getPosition()->getY() - $this->step);
+                    return true;
+                    break;
+                }
+                break;
+            case MessagesSender::MOV_LEFT:
+                if ($this->getPosition()->getX() >= 0 + $this->step) {
+                    $this->getPosition()->setX($this->getPosition()->getX() - $this->step);
+                    return true;
+                    break;
+                }
+                break;
+            case MessagesSender::MOV_DOWN:
+                if ($this->getPosition()->getY() + $this->step <= $height) {
+                    $this->getPosition()->setY($this->getPosition()->getY() + $this->step);
+                    return true;
+                    break;
+                }
+                break;
+            case MessagesSender::MOV_RIGHT:
+                if ($this->getPosition()->getX() + $this->step <= $width) {
+                    $this->getPosition()->setX($this->getPosition()->getX() + $this->step);
+                    return true;
+                    break;
+                }
+                break;
+        }
+        return false;
+    }
+
+    public function toJSON() {
+        return (array(
+            'id' => $this->getId(),
+            'x' => $this->getPosition()->getX(),
+            'y' => $this->getPosition()->getY(),
+            'step' => $this->getStep(),
+        ));
     }
 }

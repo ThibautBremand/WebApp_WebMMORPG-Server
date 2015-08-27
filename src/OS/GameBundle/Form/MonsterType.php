@@ -19,6 +19,7 @@ class MonsterType extends AbstractType
             ->add('tileFormula')
             ->add('level')
             ->add('alive')
+            ->add('step')
         ;
     }
     
