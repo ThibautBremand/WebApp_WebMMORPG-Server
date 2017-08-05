@@ -22,9 +22,9 @@
 {% block body -%}
     <div class="container-fluid">
         <div class="well">
-            <div class="row">
-                <h1>Chars creation</h1>
-
+            <p class="row">
+                <h3><p align="center">Create a new character</p></h3>
+                <br/>
                 {{ form_start(form) }}
                 {{ form_errors(form) }}
                 <div class="container-fluid">
@@ -33,13 +33,13 @@
                         {{ form_errors(form.name) }}
                         <span class="col-md-9">{{ form_widget(form.name, { 'attr': {'class': 'form-control'}}) }}</span>
                     </div>
-
+                    {#
                     <div class="row">
                         <span class="col-md-3">{{ form_label(form.owner) }}</span>
                         {{ form_errors(form.owner) }}
                         <span class="col-md-9">{{ form_widget(form.owner, { 'attr': {'class': 'form-control'}}) }}</span>
                     </div>
-
+                    #}
                     {#
                     <div class="row">
                         <span class="col-md-3">{{ form_label(form.position) }}</span>
@@ -48,17 +48,10 @@
                     </div>
                     #}
                 </div>
-                <input type="submit" />
 
                 {{ form_end(form) }}
 
-                <ul class="record_actions">
-                    <li>
-                        <a href="{{ path('chars') }}">
-                            Back to the list
-                        </a>
-                    </li>
-                </ul>
+                <h4><a href="{{ path('chars_choose_char') }}">Back to the list</a></h4>
             </div>
         </div>
 

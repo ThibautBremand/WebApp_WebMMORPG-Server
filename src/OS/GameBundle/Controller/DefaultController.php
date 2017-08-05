@@ -10,7 +10,7 @@ use Symfony\Component\BrowserKit\Response;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="index")
      * @Template("OSGameBundle:Default:index.html.twig")
      */
     public function indexAction()
