@@ -5,39 +5,27 @@
     <script type="text/javascript" src="{{ asset('bundles/osgame/js/charSelection.js') }}"></script>
 {% endblock head_script %}
 
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
 {% block body %}
-        <h1>{{ user }}, here are your characters !</h1>
+    {{ parent() }}
 
-        <table class="records_list">
-            <thead>
+    <div class="container-fluid">
+        <h3>{{ user }}, here are your characters !</h3>
+        <div class="well">
+                {% for char in chars %}
+                    <div class="row">
+                        {#<td><a href="{{ path('chars_show', { 'id': char.id }) }}">{{ char.name }} [Click to edit]</a></td>#}
+                        <div class="col-md-3">{{ char.name }}</div><div class="col-md-6"><a href="javascript:void(0);" onclick="selectChar(this)" class="linkChar" cId="{{ char.id }}" cName="{{ char.name }}">Click to play with this character</a></div>
+                    </div>
+                {% endfor %}
+            <h4><a href="{{ path('chars_new') }}">Create a new character !</a></h4>
+        </div>
+        <h4><a href="{{ path('index') }}">Go back to homepage</a></h4>
 
-            </thead>
-            <tbody>
-            {% for char in chars %}
-                <tr>
-                    <td><a href="{{ path('chars_show', { 'id': char.id }) }}">{{ char.id }}</a></td>
-                    <td>{{ char.name }}</td>
-                    <td>
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0);" onclick="selectChar(this)" cId="{{ char.id }}" cName="{{ char.name }}">Select this character</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-        <ul>
-            <li>
-                <a href="{{ path('chars_new') }}">
-                    Create a new character !
-                </a>
-            </li>
-        </ul>
-
-        <form style="visibility:hidden" id="formChar" action="/os/index.php" method="POST">
+        <form style="visibility:hidden" id="formChar" action=" http://127.0.0.1:80/os/index.php" method="POST">
             <input id="cId" name="id"/>
             <input id="cName" name="name"/>
             <input name="user" value="{{ app.user.username }}"/>

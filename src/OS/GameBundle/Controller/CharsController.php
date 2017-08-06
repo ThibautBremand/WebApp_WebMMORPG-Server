@@ -55,7 +55,7 @@ class CharsController extends Controller
             $newPos = new Position();
             $newPos->setX(14);
             $newPos->setY(14);
-            $newPos->setMap($em->getRepository('OSGameBundle:Map')->find(3));
+            $newPos->setMap($em->getRepository('OSGameBundle:Map')->find(1));
             $em->persist($newPos);
             $em->flush();
 
@@ -63,7 +63,12 @@ class CharsController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('chars_show', array('id' => $entity->getId())));
+            $user = $this->getUser();
+            $entity->setOwner($user);
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('chars_choose_char'));
         }
 
         return array(

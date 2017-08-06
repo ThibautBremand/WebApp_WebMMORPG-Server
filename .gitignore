@@ -1,0 +1,12 @@
+#idea
+.idea
+
+#vendor
+vendor/
+
+#bin
+bin/
+
+#composer
+composer.lock
+composer.phar

@@ -41,7 +41,7 @@ class ServerCommand extends ContainerAwareCommand
             8080
         );
 
-        $server->loop->addPeriodicTimer(5, array($chat, 'monstersMovement'));
+        //$server->loop->addPeriodicTimer(5, array($chat, 'monstersMovement'));
 
         // Changes php's security settings to allow server launch
         set_time_limit(0);
