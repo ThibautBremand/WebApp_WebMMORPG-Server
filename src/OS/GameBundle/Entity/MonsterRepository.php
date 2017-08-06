@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class MonsterRepository extends EntityRepository
 {
+    /**
+     * @param Map $map
+     * @return array
+     */
+    public function findByMap(Map $map) {
+        $qb = $this->createQueryBuilder('m')
+            ->join('m.position', 'p')
+            ->where('p.map = :param')
+            ->setParameter('param', $map)
+            ->getQuery();
+
+        return $qb->getResult();
+    }
 }

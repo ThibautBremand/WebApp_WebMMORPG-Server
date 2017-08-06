@@ -9,6 +9,7 @@
 namespace OS\CommunicationsBundle\Service;
 
 use Doctrine\ORM\Query;
+use OS\GameBundle\Entity\Monster;
 use Ratchet\ConnectionInterface;
 use Doctrine\ORM\EntityManager;
 
@@ -69,6 +70,7 @@ class MessagesSender {
                             break;
                         }
                     }
+                    // Retrieves connected users & their characters in order to send them to the new user
                     $arrayConnectedChars = array();
                     foreach ($clients as $client) {
                         if ($client != $conn) {
@@ -83,6 +85,8 @@ class MessagesSender {
                     if ( count ($arrayConnectedChars) > 0 ) {
                         $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($arrayConnectedChars));
                     }
+                    //Retrieves the monsters placed on the same map as the new connected user in order to send the data to the user
+                    $this->_sendMonsters($conn, $em, $currentMapChar);
                 }
             }
             else {
@@ -222,7 +226,7 @@ class MessagesSender {
             foreach($monsters as $mm) {
                 if ($mm->move()) {
                     $em->flush();
-                    array_push($movingMonstersJson, $mm->toJSON());
+                    array_push($movingMonstersJson, $mm->toJSON(Monster::FORMAT_MOVE));
                 }
             }
             if (count($movingMonstersJson) > 0) {
@@ -232,5 +236,22 @@ class MessagesSender {
                 }
             }
         }
+    }
+
+    /**
+     * Sends monsters placed on the same map as the user $conn
+     *
+     * @param ConnectionInterface $conn
+     * @param EntityManager $em
+     * @param $currentMapChar
+     */
+    private function _sendMonsters(ConnectionInterface $conn, EntityManager $em, $currentMapChar) {
+        $monsters = $em->getRepository('OSGameBundle:Monster')->findByMap($currentMapChar);
+        $monstersJson = array();
+        foreach ($monsters as $m) {
+            array_push($monstersJson, $m->toJSON(Monster::FORMAT_CONNECT));
+        }
+        $msg = "MONSTERSTODRAW" . self::separator . json_encode($monstersJson);
+        $conn->send($msg);
     }
 }

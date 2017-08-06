@@ -13,6 +13,9 @@ use OS\CommunicationsBundle\Service\MessagesSender;
  */
 class Monster
 {
+    const FORMAT_MOVE = 0;
+    const FORMAT_CONNECT = 1;
+
     /**
      * @var integer
      *
@@ -216,7 +219,7 @@ class Monster
      * Moves a monster
      */
     public function move() {
-        $direction = rand(1,4);
+        $direction = rand(0,3);
         $height = json_decode($this->getPosition()->getMap()->getFullJson())->height;
         $width = json_decode($this->getPosition()->getMap()->getFullJson())->width;
         switch($direction) {
@@ -252,12 +255,27 @@ class Monster
         return false;
     }
 
-    public function toJSON() {
-        return (array(
-            'id' => $this->getId(),
-            'x' => $this->getPosition()->getX(),
-            'y' => $this->getPosition()->getY(),
-            'step' => $this->getStep(),
-        ));
+    public function toJSON($format) {
+        switch ($format) {
+            case self::FORMAT_MOVE:
+                return (array(
+                    'id' => $this->getId(),
+                    'x' => $this->getPosition()->getX(),
+                    'y' => $this->getPosition()->getY(),
+                    'step' => $this->getStep(),
+                ));
+                break;
+            case self::FORMAT_CONNECT:
+                return (array(
+                    'id' => $this->getId(),
+                    'x' => $this->getPosition()->getX(),
+                    'y' => $this->getPosition()->getY(),
+                    'step' => $this->getStep(),
+                    'tileFormula' => $this->getTileFormula(),
+                    'level' => $this->getLevel(),
+                    'alive' => $this->getAlive(),
+                ));
+                break;
+        }
     }
 }
