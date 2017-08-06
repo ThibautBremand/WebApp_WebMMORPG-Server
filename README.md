@@ -9,10 +9,10 @@ The server that retrieves communications from users. It contains all the communi
 
 **How to launch :** <br/>
 - Make sure *php* is defined as an environment variable in your system. If no, you can still write the full path to php (php.exe for windows) instead of *php* in the commands below.
-- Install composer.
+- Install composer if it's not installed on your system.
 - Open a terminal, and go to the server directory.
 - Type *composer install* to install all the project dependencies using composer.
-- Type *php bin/console assetic:dump* to dump the assetic assets
+- Type *php app/console assetic:dump* to dump the assetic assets
 - Type *php app/console os:server* in order to instanciate the server (used to manage the communication intelligence).
 - Open another terminal, and go to the server directory.
 - Type *php app/console server:run* in order to launch the Symfony2 app (used to manage the model : users, maps, users positions, etc).
