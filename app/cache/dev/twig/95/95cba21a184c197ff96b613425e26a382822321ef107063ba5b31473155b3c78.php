@@ -23,54 +23,58 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_d487cba702bb9e131439e46a719d34028c82ae421d167fd346969266bb586e3b = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_d487cba702bb9e131439e46a719d34028c82ae421d167fd346969266bb586e3b->enter($__internal_d487cba702bb9e131439e46a719d34028c82ae421d167fd346969266bb586e3b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "OSGameBundle:Default:index.html.twig"));
+        $__internal_94294baa00e82425ec476cd4ff4610ac881d8f9913fbaaee4dfcf7ddf646668c = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_94294baa00e82425ec476cd4ff4610ac881d8f9913fbaaee4dfcf7ddf646668c->enter($__internal_94294baa00e82425ec476cd4ff4610ac881d8f9913fbaaee4dfcf7ddf646668c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "OSGameBundle:Default:index.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_d487cba702bb9e131439e46a719d34028c82ae421d167fd346969266bb586e3b->leave($__internal_d487cba702bb9e131439e46a719d34028c82ae421d167fd346969266bb586e3b_prof);
+        $__internal_94294baa00e82425ec476cd4ff4610ac881d8f9913fbaaee4dfcf7ddf646668c->leave($__internal_94294baa00e82425ec476cd4ff4610ac881d8f9913fbaaee4dfcf7ddf646668c_prof);
 
     }
 
     // line 3
     public function block_head_script($context, array $blocks = array())
     {
-        $__internal_3dbdcd44a366ade7d9bf6f300d8d7958bd6e1fa7382a8b1991571387cdc1222b = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_3dbdcd44a366ade7d9bf6f300d8d7958bd6e1fa7382a8b1991571387cdc1222b->enter($__internal_3dbdcd44a366ade7d9bf6f300d8d7958bd6e1fa7382a8b1991571387cdc1222b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "head_script"));
+        $__internal_f53cfc7d3f78b27fb2be74e19f936d2cccfcfefe665c0774d5d7e23ff9434df3 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_f53cfc7d3f78b27fb2be74e19f936d2cccfcfefe665c0774d5d7e23ff9434df3->enter($__internal_f53cfc7d3f78b27fb2be74e19f936d2cccfcfefe665c0774d5d7e23ff9434df3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "head_script"));
 
         // line 4
         echo "    ";
         $this->displayParentBlock("head_script", $context, $blocks);
         echo "
+    <script type=\"text/javascript\" src=\"";
+        // line 5
+        echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("bundles/osgame/js/launchDemo.js"), "html", null, true);
+        echo "\"></script>
 ";
         
-        $__internal_3dbdcd44a366ade7d9bf6f300d8d7958bd6e1fa7382a8b1991571387cdc1222b->leave($__internal_3dbdcd44a366ade7d9bf6f300d8d7958bd6e1fa7382a8b1991571387cdc1222b_prof);
+        $__internal_f53cfc7d3f78b27fb2be74e19f936d2cccfcfefe665c0774d5d7e23ff9434df3->leave($__internal_f53cfc7d3f78b27fb2be74e19f936d2cccfcfefe665c0774d5d7e23ff9434df3_prof);
 
     }
 
-    // line 7
+    // line 8
     public function block_stylesheets($context, array $blocks = array())
     {
-        $__internal_a1c4654fd75276d337e984996030fc41c632da825473f04ac9fa72a70c774a24 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_a1c4654fd75276d337e984996030fc41c632da825473f04ac9fa72a70c774a24->enter($__internal_a1c4654fd75276d337e984996030fc41c632da825473f04ac9fa72a70c774a24_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "stylesheets"));
+        $__internal_9e50064bdfaeee43da4d559eb3bc7ed1ea69bd8c5f7508d053b76b30df84df26 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_9e50064bdfaeee43da4d559eb3bc7ed1ea69bd8c5f7508d053b76b30df84df26->enter($__internal_9e50064bdfaeee43da4d559eb3bc7ed1ea69bd8c5f7508d053b76b30df84df26_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "stylesheets"));
 
-        // line 8
+        // line 9
         echo "    ";
         $this->displayParentBlock("stylesheets", $context, $blocks);
         echo "
 ";
         
-        $__internal_a1c4654fd75276d337e984996030fc41c632da825473f04ac9fa72a70c774a24->leave($__internal_a1c4654fd75276d337e984996030fc41c632da825473f04ac9fa72a70c774a24_prof);
+        $__internal_9e50064bdfaeee43da4d559eb3bc7ed1ea69bd8c5f7508d053b76b30df84df26->leave($__internal_9e50064bdfaeee43da4d559eb3bc7ed1ea69bd8c5f7508d053b76b30df84df26_prof);
 
     }
 
-    // line 11
+    // line 12
     public function block_body($context, array $blocks = array())
     {
-        $__internal_da82cd1b6159ec410cc964390fa8ed9fb0fd55fadd1a3f5e5a7cec29e496e8b6 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_da82cd1b6159ec410cc964390fa8ed9fb0fd55fadd1a3f5e5a7cec29e496e8b6->enter($__internal_da82cd1b6159ec410cc964390fa8ed9fb0fd55fadd1a3f5e5a7cec29e496e8b6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_1e64cbff6417659fda7bac7196297b61d640e712ce0b4b3894839ac55ae7c8fc = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_1e64cbff6417659fda7bac7196297b61d640e712ce0b4b3894839ac55ae7c8fc->enter($__internal_1e64cbff6417659fda7bac7196297b61d640e712ce0b4b3894839ac55ae7c8fc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
-        // line 12
+        // line 13
         echo "    ";
         $this->displayParentBlock("body", $context, $blocks);
         echo "
@@ -85,11 +89,20 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
 
                 <div class=\"well\">
                     <div class=\"row\">
+                        <h4>Login or register :</h4>
                         <p><a href=\"/login\">Now login and keep on playing !</a></p>
 
                         <p><b>OR</b></p>
 
                         <p><a href=\"/register\">Register to create a new account !</a></p>
+
+                        <br/>
+
+                        <h4>To try it without registering :</h4>
+                        <h5>The characters won't be customized !</h5>
+                        <p><a href=\"javascript:void(0);\" onclick=\"selectChar(this)\" class=\"linkChar\" cId=\"5\" cName=\"demo1\" cUser=\"demo1\">Click to play Demo character 1</a></p>
+
+                        <p><a href=\"javascript:void(0);\" onclick=\"selectChar(this)\" class=\"linkChar\" cId=\"6\" cName=\"demo2\" cUser=\"demo2\">Click to play Demo character 2</a></p>
                     </div>
                 </div>
 
@@ -111,7 +124,7 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
                         <p>
                             <img src=\"https://www.w3.org/html/logo/downloads/HTML5_Logo_512.png\" class=\"logosTechnos\">
                             <img src=\"";
-        // line 49
+        // line 59
         echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("bundles/corecore/images/logo_javascript.png"), "html", null, true);
         echo "\" class=\"logosTechnos\">
                             <img src=\"http://creersonsiteweb.net/images/bootstrap-twitter.png\" class=\"logosTechnos\">
@@ -120,20 +133,51 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
                             <img src=\"https://blog.pandorafms.org/wp-content/uploads/2016/05/nginx_logo.png\" class=\"logosTechnos\">
                         </p><br/>
                         <p><h4>Thibaut BREMAND</h4></p>
+                        <p><a href=\"http://github.com/ThibautBremand/os\" target=\"_blank\">Github (Client side)</a></p>
+                        <p><a href=\"http://github.com/ThibautBremand/os-server\" target=\"_blank\">Github (Server side)</a></p>
                     </div>
                 </div>
-                <p><h4>Screenshot</h4></p>
-                <img src=\"";
-        // line 59
+                <p><h4>Screenshots (click to enlarge)</h4></p>
+                <a href=\"";
+        // line 71
         echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("bundles/corecore/images/MMOscreen.png"), "html", null, true);
-        echo "\" class=\"screenshot\">
+        echo "\" data-fancybox data-caption=\"Several people connected simultaneously\" class=\"screenshot\">
+                    <img src=\"";
+        // line 72
+        echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("bundles/corecore/images/MMOscreen.png"), "html", null, true);
+        echo "\" style=\"max-height:200px\" alt=\"\" />
+                </a>
+                <a href=\"";
+        // line 74
+        echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("bundles/corecore/images/MMOscreen2.png"), "html", null, true);
+        echo "\" data-fancybox data-caption=\"Map editing with Tiled\" class=\"screenshot\">
+                    <img src=\"";
+        // line 75
+        echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("bundles/corecore/images/MMOscreen2.png"), "html", null, true);
+        echo "\" style=\"max-height:200px\" alt=\"\" />
+                </a>
+                <a href=\"";
+        // line 77
+        echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("bundles/corecore/images/MMOscreen3.png"), "html", null, true);
+        echo "\" data-fancybox data-caption=\"Character creation with customization\" class=\"screenshot\">
+                    <img src=\"";
+        // line 78
+        echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("bundles/corecore/images/MMOscreen3.png"), "html", null, true);
+        echo "\" style=\"max-height:200px\" alt=\"\" />
+                </a>
             </div>
         </div>
     </p>
 
+    <form style=\"visibility:hidden\" id=\"formChar\" action=\" http://127.0.0.1:80/os/index.php\" method=\"POST\" target=\"_blank\">
+        <input id=\"cId\" name=\"id\"/>
+        <input id=\"cName\" name=\"name\"/>
+        <input id=\"user\" name=\"user\"/>
+    </form>
+
 ";
         
-        $__internal_da82cd1b6159ec410cc964390fa8ed9fb0fd55fadd1a3f5e5a7cec29e496e8b6->leave($__internal_da82cd1b6159ec410cc964390fa8ed9fb0fd55fadd1a3f5e5a7cec29e496e8b6_prof);
+        $__internal_1e64cbff6417659fda7bac7196297b61d640e712ce0b4b3894839ac55ae7c8fc->leave($__internal_1e64cbff6417659fda7bac7196297b61d640e712ce0b4b3894839ac55ae7c8fc_prof);
 
     }
 
@@ -149,7 +193,7 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
 
     public function getDebugInfo()
     {
-        return array (  128 => 59,  115 => 49,  74 => 12,  68 => 11,  58 => 8,  52 => 7,  42 => 4,  36 => 3,  11 => 1,);
+        return array (  165 => 78,  161 => 77,  156 => 75,  152 => 74,  147 => 72,  143 => 71,  128 => 59,  78 => 13,  72 => 12,  62 => 9,  56 => 8,  47 => 5,  42 => 4,  36 => 3,  11 => 1,);
     }
 
     public function getSourceContext()
@@ -158,6 +202,7 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
 
 {% block head_script %}
     {{ parent() }}
+    <script type=\"text/javascript\" src=\"{{ asset('bundles/osgame/js/launchDemo.js') }}\"></script>
 {% endblock head_script %}
 
 {% block stylesheets %}
@@ -177,11 +222,20 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
 
                 <div class=\"well\">
                     <div class=\"row\">
+                        <h4>Login or register :</h4>
                         <p><a href=\"/login\">Now login and keep on playing !</a></p>
 
                         <p><b>OR</b></p>
 
                         <p><a href=\"/register\">Register to create a new account !</a></p>
+
+                        <br/>
+
+                        <h4>To try it without registering :</h4>
+                        <h5>The characters won't be customized !</h5>
+                        <p><a href=\"javascript:void(0);\" onclick=\"selectChar(this)\" class=\"linkChar\" cId=\"5\" cName=\"demo1\" cUser=\"demo1\">Click to play Demo character 1</a></p>
+
+                        <p><a href=\"javascript:void(0);\" onclick=\"selectChar(this)\" class=\"linkChar\" cId=\"6\" cName=\"demo2\" cUser=\"demo2\">Click to play Demo character 2</a></p>
                     </div>
                 </div>
 
@@ -209,13 +263,29 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
                             <img src=\"https://blog.pandorafms.org/wp-content/uploads/2016/05/nginx_logo.png\" class=\"logosTechnos\">
                         </p><br/>
                         <p><h4>Thibaut BREMAND</h4></p>
+                        <p><a href=\"http://github.com/ThibautBremand/os\" target=\"_blank\">Github (Client side)</a></p>
+                        <p><a href=\"http://github.com/ThibautBremand/os-server\" target=\"_blank\">Github (Server side)</a></p>
                     </div>
                 </div>
-                <p><h4>Screenshot</h4></p>
-                <img src=\"{{ asset('bundles/corecore/images/MMOscreen.png') }}\" class=\"screenshot\">
+                <p><h4>Screenshots (click to enlarge)</h4></p>
+                <a href=\"{{ asset('bundles/corecore/images/MMOscreen.png') }}\" data-fancybox data-caption=\"Several people connected simultaneously\" class=\"screenshot\">
+                    <img src=\"{{ asset('bundles/corecore/images/MMOscreen.png') }}\" style=\"max-height:200px\" alt=\"\" />
+                </a>
+                <a href=\"{{ asset('bundles/corecore/images/MMOscreen2.png') }}\" data-fancybox data-caption=\"Map editing with Tiled\" class=\"screenshot\">
+                    <img src=\"{{ asset('bundles/corecore/images/MMOscreen2.png') }}\" style=\"max-height:200px\" alt=\"\" />
+                </a>
+                <a href=\"{{ asset('bundles/corecore/images/MMOscreen3.png') }}\" data-fancybox data-caption=\"Character creation with customization\" class=\"screenshot\">
+                    <img src=\"{{ asset('bundles/corecore/images/MMOscreen3.png') }}\" style=\"max-height:200px\" alt=\"\" />
+                </a>
             </div>
         </div>
     </p>
+
+    <form style=\"visibility:hidden\" id=\"formChar\" action=\" http://127.0.0.1:80/os/index.php\" method=\"POST\" target=\"_blank\">
+        <input id=\"cId\" name=\"id\"/>
+        <input id=\"cName\" name=\"name\"/>
+        <input id=\"user\" name=\"user\"/>
+    </form>
 
 {% endblock %}", "OSGameBundle:Default:index.html.twig", "D:\\Git\\os-server\\src\\OS\\GameBundle/Resources/views/Default/index.html.twig");
     }

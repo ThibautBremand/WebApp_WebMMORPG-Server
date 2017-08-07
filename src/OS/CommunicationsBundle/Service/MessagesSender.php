@@ -26,6 +26,10 @@ class MessagesSender {
         // First checks if the user is correctly logged
         $req = $conn->WebSocket->request->getQuery();
         $req = explode("&", urldecode($req));
+        $req[0] = substr($req[0],5);
+        $req[1] = substr($req[1],5);
+        //$req[2] = substr($req[2],5);
+
         $user = $em->getRepository('OSUserBundle:User')->findOneByUsername($req[1]);
         if (!$user ) {
             $conn->send("ERROR" . self::separator . "Access denied. You need to register before playing.");
@@ -35,64 +39,65 @@ class MessagesSender {
             // Checks if the password entered is the right one.
             $encoder_service = $security;
             $encoder = $encoder_service->getEncoder($user);
-            if ($encoder->isPasswordValid($user->getPassword(), $req[2], $user->getSalt())) {
+            //if ($encoder->isPasswordValid($user->getPassword(), $req[2], $user->getSalt())) {
                 // Checks if the user is already connected
-                $alreadyConnected = 0;
+            $alreadyConnected = 0;
+            foreach ($clients as $client) {
+                $name = $clients->getInfo()->getOwner()->getUsername();
+                if (strcmp($name, $req[1]) == 0) {
+                    $conn->send("ERROR" . self::separator . "You are already connected with a character !");
+                    $conn->close();
+                    $alreadyConnected = 1;
+                    break;
+                }
+            }
+            if ( $alreadyConnected == 0 ) {
+                // The user is registered, we can continue
+                // Stores the new connection to send it messages later
+                $connectedChar = $em->getRepository('OSGameBundle:Chars')->findOneByName($req[0]);   //todo : rechercher parmi les characters du user uniquement avec un repo
+                $clients->attach($conn, $connectedChar);
+
+                // Sends to the user information about his character
+                $conn->send("LAUNCH" . self::separator . json_encode($connectedChar->toJSON()));
+
+                echo "New connection! ({$conn->resourceId})\n";
+                echo $clients->count() . " players are currently connected ! \n";
+
+                // Builds information about the new character online to send it to the already connected users
+                $req = explode("&", urldecode($conn->WebSocket->request->getQuery()));
+                $req[1] = substr($req[1],5);
+                $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . $req[1] . self::separator . json_encode($connectedChar->toJSON());
+                $msgComing = "COMING" . self::separator . $conn->resourceId . self::separator . json_encode($connectedChar->toJSON());
+                // Sends to all the users the new online character
                 foreach ($clients as $client) {
-                    $name = $clients->getInfo()->getOwner()->getUsername();
-                    if (strcmp($name, $req[1]) == 0) {
-                        $conn->send("ERROR" . self::separator . "You are already connected with a character !");
-                        $conn->close();
-                        $alreadyConnected = 1;
+                    if ($client == $conn) {
+                        $currentMapChar = $clients->getInfo()->getPosition()->getMap();
                         break;
                     }
                 }
-                if ( $alreadyConnected == 0 ) {
-                    // The user is registered, we can continue
-                    // Stores the new connection to send it messages later
-                    $connectedChar = $em->getRepository('OSGameBundle:Chars')->findOneByName($req[0]);   //todo : rechercher parmi les characters du user uniquement avec un repo
-                    $clients->attach($conn, $connectedChar);
-
-                    // Sends to the user information about his character
-                    $conn->send("LAUNCH" . self::separator . json_encode($connectedChar->toJSON()));
-
-                    echo "New connection! ({$conn->resourceId})\n";
-                    echo $clients->count() . " players are currently connected ! \n";
-
-                    // Builds information about the new character online to send it to the already connected users
-                    $req = explode("&", urldecode($conn->WebSocket->request->getQuery()));
-                    $msg = "ENTER" . self::separator . $conn->resourceId . self::separator . $req[1] . self::separator . json_encode($connectedChar->toJSON());
-                    $msgComing = "COMING" . self::separator . $conn->resourceId . self::separator . json_encode($connectedChar->toJSON());
-                    // Sends to all the users the new online character
-                    foreach ($clients as $client) {
-                        if ($client == $conn) {
-                            $currentMapChar = $clients->getInfo()->getPosition()->getMap();
-                            break;
+                // Retrieves connected users & their characters in order to send them to the new user
+                $arrayConnectedChars = array();
+                foreach ($clients as $client) {
+                    if ($client != $conn) {
+                        $client->send($msg);
+                        $mapToCompare = $clients->getInfo()->getPosition()->getMap();
+                        if (strcmp($mapToCompare, $currentMapChar) == 0) {
+                            array_push($arrayConnectedChars, $clients->getInfo()->toJSON());
+                            $client->send($msgComing);
                         }
                     }
-                    // Retrieves connected users & their characters in order to send them to the new user
-                    $arrayConnectedChars = array();
-                    foreach ($clients as $client) {
-                        if ($client != $conn) {
-                            $client->send($msg);
-                            $mapToCompare = $clients->getInfo()->getPosition()->getMap();
-                            if (strcmp($mapToCompare, $currentMapChar) == 0) {
-                                array_push($arrayConnectedChars, $clients->getInfo()->toJSON());
-                                $client->send($msgComing);
-                            }
-                        }
-                    }
-                    if ( count ($arrayConnectedChars) > 0 ) {
-                        $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($arrayConnectedChars));
-                    }
-                    //Retrieves the monsters placed on the same map as the new connected user in order to send the data to the user
-                    $this->_sendMonsters($conn, $em, $currentMapChar);
                 }
+                if ( count ($arrayConnectedChars) > 0 ) {
+                    $conn->send("CHARSCONNECTED" . self::separator . $conn->resourceId . self::separator . json_encode($arrayConnectedChars));
+                }
+                //Retrieves the monsters placed on the same map as the new connected user in order to send the data to the user
+                $this->_sendMonsters($conn, $em, $currentMapChar);
             }
+            /*}
             else {
                 $conn->send("ERROR" . self::separator . "Wrong password.");
                 $conn->close();
-            }
+            }*/
         }
     }
 
@@ -199,6 +204,9 @@ class MessagesSender {
         // The connection is closed, remove it, as we can no longer send it messages
         echo "Connection {$conn->resourceId} has disconnected\n";
         $req = explode("&", urldecode($conn->WebSocket->request->getQuery()));
+        $req[0] = substr($req[0],5);
+        $req[1] = substr($req[1],5);
+
         $char = $em->getRepository('OSGameBundle:Chars')->findOneByName($req[0]);
 
         if ($char != null) {
