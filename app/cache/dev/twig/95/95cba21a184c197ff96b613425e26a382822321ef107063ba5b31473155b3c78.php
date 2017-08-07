@@ -23,20 +23,20 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_94294baa00e82425ec476cd4ff4610ac881d8f9913fbaaee4dfcf7ddf646668c = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_94294baa00e82425ec476cd4ff4610ac881d8f9913fbaaee4dfcf7ddf646668c->enter($__internal_94294baa00e82425ec476cd4ff4610ac881d8f9913fbaaee4dfcf7ddf646668c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "OSGameBundle:Default:index.html.twig"));
+        $__internal_e22105fd423ca78daa3dd316496e734fd330fb00de7a1a52accfe2ae9db51cce = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_e22105fd423ca78daa3dd316496e734fd330fb00de7a1a52accfe2ae9db51cce->enter($__internal_e22105fd423ca78daa3dd316496e734fd330fb00de7a1a52accfe2ae9db51cce_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "OSGameBundle:Default:index.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_94294baa00e82425ec476cd4ff4610ac881d8f9913fbaaee4dfcf7ddf646668c->leave($__internal_94294baa00e82425ec476cd4ff4610ac881d8f9913fbaaee4dfcf7ddf646668c_prof);
+        $__internal_e22105fd423ca78daa3dd316496e734fd330fb00de7a1a52accfe2ae9db51cce->leave($__internal_e22105fd423ca78daa3dd316496e734fd330fb00de7a1a52accfe2ae9db51cce_prof);
 
     }
 
     // line 3
     public function block_head_script($context, array $blocks = array())
     {
-        $__internal_f53cfc7d3f78b27fb2be74e19f936d2cccfcfefe665c0774d5d7e23ff9434df3 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_f53cfc7d3f78b27fb2be74e19f936d2cccfcfefe665c0774d5d7e23ff9434df3->enter($__internal_f53cfc7d3f78b27fb2be74e19f936d2cccfcfefe665c0774d5d7e23ff9434df3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "head_script"));
+        $__internal_e7136c268871663d172c65c900b6baa7c9f46d1f9d24b13731a23517cae19c85 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_e7136c268871663d172c65c900b6baa7c9f46d1f9d24b13731a23517cae19c85->enter($__internal_e7136c268871663d172c65c900b6baa7c9f46d1f9d24b13731a23517cae19c85_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "head_script"));
 
         // line 4
         echo "    ";
@@ -48,15 +48,15 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
         echo "\"></script>
 ";
         
-        $__internal_f53cfc7d3f78b27fb2be74e19f936d2cccfcfefe665c0774d5d7e23ff9434df3->leave($__internal_f53cfc7d3f78b27fb2be74e19f936d2cccfcfefe665c0774d5d7e23ff9434df3_prof);
+        $__internal_e7136c268871663d172c65c900b6baa7c9f46d1f9d24b13731a23517cae19c85->leave($__internal_e7136c268871663d172c65c900b6baa7c9f46d1f9d24b13731a23517cae19c85_prof);
 
     }
 
     // line 8
     public function block_stylesheets($context, array $blocks = array())
     {
-        $__internal_9e50064bdfaeee43da4d559eb3bc7ed1ea69bd8c5f7508d053b76b30df84df26 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_9e50064bdfaeee43da4d559eb3bc7ed1ea69bd8c5f7508d053b76b30df84df26->enter($__internal_9e50064bdfaeee43da4d559eb3bc7ed1ea69bd8c5f7508d053b76b30df84df26_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "stylesheets"));
+        $__internal_09421d5dda0d721a7ca71299f3b4efa6300b48b6b51e5771d5c1d5350af21a99 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_09421d5dda0d721a7ca71299f3b4efa6300b48b6b51e5771d5c1d5350af21a99->enter($__internal_09421d5dda0d721a7ca71299f3b4efa6300b48b6b51e5771d5c1d5350af21a99_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "stylesheets"));
 
         // line 9
         echo "    ";
@@ -64,15 +64,15 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
         echo "
 ";
         
-        $__internal_9e50064bdfaeee43da4d559eb3bc7ed1ea69bd8c5f7508d053b76b30df84df26->leave($__internal_9e50064bdfaeee43da4d559eb3bc7ed1ea69bd8c5f7508d053b76b30df84df26_prof);
+        $__internal_09421d5dda0d721a7ca71299f3b4efa6300b48b6b51e5771d5c1d5350af21a99->leave($__internal_09421d5dda0d721a7ca71299f3b4efa6300b48b6b51e5771d5c1d5350af21a99_prof);
 
     }
 
     // line 12
     public function block_body($context, array $blocks = array())
     {
-        $__internal_1e64cbff6417659fda7bac7196297b61d640e712ce0b4b3894839ac55ae7c8fc = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_1e64cbff6417659fda7bac7196297b61d640e712ce0b4b3894839ac55ae7c8fc->enter($__internal_1e64cbff6417659fda7bac7196297b61d640e712ce0b4b3894839ac55ae7c8fc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_ddfddb81ed464fd1997f0f7cf14b2c1a56631a832cb23690b2dde34f4a3547c7 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_ddfddb81ed464fd1997f0f7cf14b2c1a56631a832cb23690b2dde34f4a3547c7->enter($__internal_ddfddb81ed464fd1997f0f7cf14b2c1a56631a832cb23690b2dde34f4a3547c7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         // line 13
         echo "    ";
@@ -99,7 +99,7 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
                         <br/>
 
                         <h4>To try it without registering :</h4>
-                        <h5>The characters won't be customized !</h5>
+                        <h5>You can launch both at the same time so you'll see both characters on the map ! These Demo characters can't be customized.</h5>
                         <p><a href=\"javascript:void(0);\" onclick=\"selectChar(this)\" class=\"linkChar\" cId=\"5\" cName=\"demo1\" cUser=\"demo1\">Click to play Demo character 1</a></p>
 
                         <p><a href=\"javascript:void(0);\" onclick=\"selectChar(this)\" class=\"linkChar\" cId=\"6\" cName=\"demo2\" cUser=\"demo2\">Click to play Demo character 2</a></p>
@@ -172,12 +172,12 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
     <form style=\"visibility:hidden\" id=\"formChar\" action=\" http://127.0.0.1:80/os/index.php\" method=\"POST\" target=\"_blank\">
         <input id=\"cId\" name=\"id\"/>
         <input id=\"cName\" name=\"name\"/>
-        <input id=\"user\" name=\"user\"/>
+        <input id=\"cUser\" name=\"user\"/>
     </form>
 
 ";
         
-        $__internal_1e64cbff6417659fda7bac7196297b61d640e712ce0b4b3894839ac55ae7c8fc->leave($__internal_1e64cbff6417659fda7bac7196297b61d640e712ce0b4b3894839ac55ae7c8fc_prof);
+        $__internal_ddfddb81ed464fd1997f0f7cf14b2c1a56631a832cb23690b2dde34f4a3547c7->leave($__internal_ddfddb81ed464fd1997f0f7cf14b2c1a56631a832cb23690b2dde34f4a3547c7_prof);
 
     }
 
@@ -232,7 +232,7 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
                         <br/>
 
                         <h4>To try it without registering :</h4>
-                        <h5>The characters won't be customized !</h5>
+                        <h5>You can launch both at the same time so you'll see both characters on the map ! These Demo characters can't be customized.</h5>
                         <p><a href=\"javascript:void(0);\" onclick=\"selectChar(this)\" class=\"linkChar\" cId=\"5\" cName=\"demo1\" cUser=\"demo1\">Click to play Demo character 1</a></p>
 
                         <p><a href=\"javascript:void(0);\" onclick=\"selectChar(this)\" class=\"linkChar\" cId=\"6\" cName=\"demo2\" cUser=\"demo2\">Click to play Demo character 2</a></p>
@@ -284,7 +284,7 @@ class __TwigTemplate_5197e32b9b95d62b9f6b6a9af324e7e79a495ac98ca3130c4d05a873431
     <form style=\"visibility:hidden\" id=\"formChar\" action=\" http://127.0.0.1:80/os/index.php\" method=\"POST\" target=\"_blank\">
         <input id=\"cId\" name=\"id\"/>
         <input id=\"cName\" name=\"name\"/>
-        <input id=\"user\" name=\"user\"/>
+        <input id=\"cUser\" name=\"user\"/>
     </form>
 
 {% endblock %}", "OSGameBundle:Default:index.html.twig", "D:\\Git\\os-server\\src\\OS\\GameBundle/Resources/views/Default/index.html.twig");

@@ -7,6 +7,6 @@ function selectChar( link ) {
     var $link = $(link);
     $("#cId").val($link.attr("cId"));
     $("#cName").val($link.attr("cName"));
-    $("#user").val($link.attr("cUser"));
+    $("#cUser").val($link.attr("cUser"));
     $("#formChar").submit();
 }
