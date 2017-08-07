@@ -15,8 +15,8 @@ class __TwigTemplate_82206d5f1a5c67dfecf2e39e8298b77330eab631129cb34decab556cade
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_3f08b93c8961d4e2fde8318ff8f2d04389211724245bf2b5f2f1eb3d358febdd = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_3f08b93c8961d4e2fde8318ff8f2d04389211724245bf2b5f2f1eb3d358febdd->enter($__internal_3f08b93c8961d4e2fde8318ff8f2d04389211724245bf2b5f2f1eb3d358febdd_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "FOSUserBundle:Registration:register_content.html.twig"));
+        $__internal_fc65cd30473b1fff1cb5f222d214354c713e7342bb4bd84fe1d2ce70573c29a6 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_fc65cd30473b1fff1cb5f222d214354c713e7342bb4bd84fe1d2ce70573c29a6->enter($__internal_fc65cd30473b1fff1cb5f222d214354c713e7342bb4bd84fe1d2ce70573c29a6_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "FOSUserBundle:Registration:register_content.html.twig"));
 
         // line 2
         echo "<div class=\"container-fluid\">
@@ -121,7 +121,7 @@ class __TwigTemplate_82206d5f1a5c67dfecf2e39e8298b77330eab631129cb34decab556cade
     </div>
 </div>";
         
-        $__internal_3f08b93c8961d4e2fde8318ff8f2d04389211724245bf2b5f2f1eb3d358febdd->leave($__internal_3f08b93c8961d4e2fde8318ff8f2d04389211724245bf2b5f2f1eb3d358febdd_prof);
+        $__internal_fc65cd30473b1fff1cb5f222d214354c713e7342bb4bd84fe1d2ce70573c29a6->leave($__internal_fc65cd30473b1fff1cb5f222d214354c713e7342bb4bd84fe1d2ce70573c29a6_prof);
 
     }
 
