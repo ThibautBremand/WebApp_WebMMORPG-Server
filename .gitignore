@@ -10,3 +10,6 @@ bin/
 #composer
 composer.lock
 composer.phar
+
+#cache
+app/cache/
