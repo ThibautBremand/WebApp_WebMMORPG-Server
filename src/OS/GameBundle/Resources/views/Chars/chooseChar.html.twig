@@ -25,7 +25,7 @@
         </div>
         <h4><a href="{{ path('index') }}">Go back to homepage</a></h4>
 
-        <form style="visibility:hidden" id="formChar" action=" http://127.0.0.1:80/os/index.php" method="POST">
+        <form style="visibility:hidden" id="formChar" action=" http://127.0.0.1:80/os/index.php" method="POST" target="_blank">
             <input id="cId" name="id"/>
             <input id="cName" name="name"/>
             <input name="user" value="{{ app.user.username }}"/>

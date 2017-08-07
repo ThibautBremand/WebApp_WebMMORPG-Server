@@ -20,8 +20,8 @@ class __TwigTemplate_50eb30c521e959042677b0fb9f43aaa4d9d8bd85cba085d57399ddfa766
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_4db670283345d959398ae5b3a0ba448c6df16eab3ac31096888f096df10c6687 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_4db670283345d959398ae5b3a0ba448c6df16eab3ac31096888f096df10c6687->enter($__internal_4db670283345d959398ae5b3a0ba448c6df16eab3ac31096888f096df10c6687_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "CoreCoreBundle::base.html.twig"));
+        $__internal_3553e986221f6211752ef751bb7daa1fe996b6ea8f40f9b2481ff200148fc6c9 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_3553e986221f6211752ef751bb7daa1fe996b6ea8f40f9b2481ff200148fc6c9->enter($__internal_3553e986221f6211752ef751bb7daa1fe996b6ea8f40f9b2481ff200148fc6c9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "CoreCoreBundle::base.html.twig"));
 
         // line 1
         echo "<!DOCTYPE html>
@@ -36,48 +36,48 @@ class __TwigTemplate_50eb30c521e959042677b0fb9f43aaa4d9d8bd85cba085d57399ddfa766
     ";
         // line 7
         $this->displayBlock('head_script', $context, $blocks);
-        // line 11
+        // line 12
         echo "
     ";
-        // line 12
+        // line 13
         $this->displayBlock('stylesheets', $context, $blocks);
-        // line 16
+        // line 18
         echo "    <link rel=\"icon\" type=\"image/x-icon\" href=\"";
         echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("favicon.ico"), "html", null, true);
         echo "\" />
 </head>
 <body>
     ";
-        // line 19
+        // line 21
         $this->displayBlock('body', $context, $blocks);
-        // line 20
+        // line 22
         echo "    ";
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 21
+        // line 23
         echo "</body>
 </html>";
         
-        $__internal_4db670283345d959398ae5b3a0ba448c6df16eab3ac31096888f096df10c6687->leave($__internal_4db670283345d959398ae5b3a0ba448c6df16eab3ac31096888f096df10c6687_prof);
+        $__internal_3553e986221f6211752ef751bb7daa1fe996b6ea8f40f9b2481ff200148fc6c9->leave($__internal_3553e986221f6211752ef751bb7daa1fe996b6ea8f40f9b2481ff200148fc6c9_prof);
 
     }
 
     // line 6
     public function block_title($context, array $blocks = array())
     {
-        $__internal_85951b64c00e2ad6b07cba06628c2967113b5ff3f2f7287596b991c707b4b707 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_85951b64c00e2ad6b07cba06628c2967113b5ff3f2f7287596b991c707b4b707->enter($__internal_85951b64c00e2ad6b07cba06628c2967113b5ff3f2f7287596b991c707b4b707_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
+        $__internal_408f5514889dfa683ca2bdb458b264397e5a97bef6c2782db57abf90d2ffa8d3 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_408f5514889dfa683ca2bdb458b264397e5a97bef6c2782db57abf90d2ffa8d3->enter($__internal_408f5514889dfa683ca2bdb458b264397e5a97bef6c2782db57abf90d2ffa8d3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
 
         echo "Welcome!";
         
-        $__internal_85951b64c00e2ad6b07cba06628c2967113b5ff3f2f7287596b991c707b4b707->leave($__internal_85951b64c00e2ad6b07cba06628c2967113b5ff3f2f7287596b991c707b4b707_prof);
+        $__internal_408f5514889dfa683ca2bdb458b264397e5a97bef6c2782db57abf90d2ffa8d3->leave($__internal_408f5514889dfa683ca2bdb458b264397e5a97bef6c2782db57abf90d2ffa8d3_prof);
 
     }
 
     // line 7
     public function block_head_script($context, array $blocks = array())
     {
-        $__internal_0bdc96a6d48bbba5bf75efc9cea35e01df6f99cf7ddbce6e1baad8f7c03d6d8b = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_0bdc96a6d48bbba5bf75efc9cea35e01df6f99cf7ddbce6e1baad8f7c03d6d8b->enter($__internal_0bdc96a6d48bbba5bf75efc9cea35e01df6f99cf7ddbce6e1baad8f7c03d6d8b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "head_script"));
+        $__internal_c41bb17841ee610797f949880f897f8332e7c02ea8e6a4e7b5979f12c54e4ac1 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_c41bb17841ee610797f949880f897f8332e7c02ea8e6a4e7b5979f12c54e4ac1->enter($__internal_c41bb17841ee610797f949880f897f8332e7c02ea8e6a4e7b5979f12c54e4ac1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "head_script"));
 
         // line 8
         echo "        <script type=\"text/javascript\" src=\"";
@@ -87,51 +87,59 @@ class __TwigTemplate_50eb30c521e959042677b0fb9f43aaa4d9d8bd85cba085d57399ddfa766
         // line 9
         echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("bundles/corecore/bootstrap-3.3.5-dist/js/bootstrap.min.js"), "html", null, true);
         echo "\"></script>
+        <script type=\"text/javascript\" src=\"";
+        // line 10
+        echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("bundles/corecore/fancybox-master/dist/jquery.fancybox.min.js"), "html", null, true);
+        echo "\"></script>
     ";
         
-        $__internal_0bdc96a6d48bbba5bf75efc9cea35e01df6f99cf7ddbce6e1baad8f7c03d6d8b->leave($__internal_0bdc96a6d48bbba5bf75efc9cea35e01df6f99cf7ddbce6e1baad8f7c03d6d8b_prof);
+        $__internal_c41bb17841ee610797f949880f897f8332e7c02ea8e6a4e7b5979f12c54e4ac1->leave($__internal_c41bb17841ee610797f949880f897f8332e7c02ea8e6a4e7b5979f12c54e4ac1_prof);
 
     }
 
-    // line 12
+    // line 13
     public function block_stylesheets($context, array $blocks = array())
     {
-        $__internal_ddb576a3c0340e032ac9e8d90a52b64c95973c6a5cfffc899f0a8bd09cbe9f06 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_ddb576a3c0340e032ac9e8d90a52b64c95973c6a5cfffc899f0a8bd09cbe9f06->enter($__internal_ddb576a3c0340e032ac9e8d90a52b64c95973c6a5cfffc899f0a8bd09cbe9f06_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "stylesheets"));
+        $__internal_7554021579f6d19a55f5a21e044b12715278d4a427da5fd945a18dae1acf6a03 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_7554021579f6d19a55f5a21e044b12715278d4a427da5fd945a18dae1acf6a03->enter($__internal_7554021579f6d19a55f5a21e044b12715278d4a427da5fd945a18dae1acf6a03_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "stylesheets"));
 
-        // line 13
+        // line 14
         echo "        <link href=\"";
         echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("bundles/corecore/bootstrap-3.3.5-dist/css/bootstrap.min.css"), "html", null, true);
         echo "\" type=\"text/css\" rel=\"stylesheet\" />
         <link href=\"";
-        // line 14
+        // line 15
         echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("bundles/corecore/css/core.css"), "html", null, true);
+        echo "\" type=\"text/css\" rel=\"stylesheet\" />
+        <link href=\"";
+        // line 16
+        echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("bundles/corecore/fancybox-master/dist/jquery.fancybox.min.css"), "html", null, true);
         echo "\" type=\"text/css\" rel=\"stylesheet\" />
     ";
         
-        $__internal_ddb576a3c0340e032ac9e8d90a52b64c95973c6a5cfffc899f0a8bd09cbe9f06->leave($__internal_ddb576a3c0340e032ac9e8d90a52b64c95973c6a5cfffc899f0a8bd09cbe9f06_prof);
+        $__internal_7554021579f6d19a55f5a21e044b12715278d4a427da5fd945a18dae1acf6a03->leave($__internal_7554021579f6d19a55f5a21e044b12715278d4a427da5fd945a18dae1acf6a03_prof);
 
     }
 
-    // line 19
+    // line 21
     public function block_body($context, array $blocks = array())
     {
-        $__internal_1a6317a952c59fd79c663939414d6bafa7c1eab896a75c60c7cb979fd9d05694 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_1a6317a952c59fd79c663939414d6bafa7c1eab896a75c60c7cb979fd9d05694->enter($__internal_1a6317a952c59fd79c663939414d6bafa7c1eab896a75c60c7cb979fd9d05694_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_97cfa0864243acc07296f58f31e994b9c635cd2a6b1191406c125598ee854917 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_97cfa0864243acc07296f58f31e994b9c635cd2a6b1191406c125598ee854917->enter($__internal_97cfa0864243acc07296f58f31e994b9c635cd2a6b1191406c125598ee854917_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         
-        $__internal_1a6317a952c59fd79c663939414d6bafa7c1eab896a75c60c7cb979fd9d05694->leave($__internal_1a6317a952c59fd79c663939414d6bafa7c1eab896a75c60c7cb979fd9d05694_prof);
+        $__internal_97cfa0864243acc07296f58f31e994b9c635cd2a6b1191406c125598ee854917->leave($__internal_97cfa0864243acc07296f58f31e994b9c635cd2a6b1191406c125598ee854917_prof);
 
     }
 
-    // line 20
+    // line 22
     public function block_javascripts($context, array $blocks = array())
     {
-        $__internal_e02dfb5e3c9503f56d9c4cb14f696e2616c21b3d31995147ebcfcb2127c7ed54 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_e02dfb5e3c9503f56d9c4cb14f696e2616c21b3d31995147ebcfcb2127c7ed54->enter($__internal_e02dfb5e3c9503f56d9c4cb14f696e2616c21b3d31995147ebcfcb2127c7ed54_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "javascripts"));
+        $__internal_d72a599fa0fbaabe20a85c3005a203e263d9f773b2a78e3c0a6bd0a6ee2b8814 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_d72a599fa0fbaabe20a85c3005a203e263d9f773b2a78e3c0a6bd0a6ee2b8814->enter($__internal_d72a599fa0fbaabe20a85c3005a203e263d9f773b2a78e3c0a6bd0a6ee2b8814_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "javascripts"));
 
         
-        $__internal_e02dfb5e3c9503f56d9c4cb14f696e2616c21b3d31995147ebcfcb2127c7ed54->leave($__internal_e02dfb5e3c9503f56d9c4cb14f696e2616c21b3d31995147ebcfcb2127c7ed54_prof);
+        $__internal_d72a599fa0fbaabe20a85c3005a203e263d9f773b2a78e3c0a6bd0a6ee2b8814->leave($__internal_d72a599fa0fbaabe20a85c3005a203e263d9f773b2a78e3c0a6bd0a6ee2b8814_prof);
 
     }
 
@@ -147,7 +155,7 @@ class __TwigTemplate_50eb30c521e959042677b0fb9f43aaa4d9d8bd85cba085d57399ddfa766
 
     public function getDebugInfo()
     {
-        return array (  128 => 20,  117 => 19,  108 => 14,  103 => 13,  97 => 12,  88 => 9,  83 => 8,  77 => 7,  65 => 6,  57 => 21,  54 => 20,  52 => 19,  45 => 16,  43 => 12,  40 => 11,  38 => 7,  34 => 6,  27 => 1,);
+        return array (  136 => 22,  125 => 21,  116 => 16,  112 => 15,  107 => 14,  101 => 13,  92 => 10,  88 => 9,  83 => 8,  77 => 7,  65 => 6,  57 => 23,  54 => 22,  52 => 21,  45 => 18,  43 => 13,  40 => 12,  38 => 7,  34 => 6,  27 => 1,);
     }
 
     public function getSourceContext()
@@ -161,11 +169,13 @@ class __TwigTemplate_50eb30c521e959042677b0fb9f43aaa4d9d8bd85cba085d57399ddfa766
     {% block head_script %}
         <script type=\"text/javascript\" src=\"{{ asset('bundles/corecore/jquery-1.11.3/jquery-1.11.3.min.js') }}\"></script>
         <script type=\"text/javascript\" src=\"{{ asset('bundles/corecore/bootstrap-3.3.5-dist/js/bootstrap.min.js') }}\"></script>
+        <script type=\"text/javascript\" src=\"{{ asset('bundles/corecore/fancybox-master/dist/jquery.fancybox.min.js') }}\"></script>
     {% endblock head_script %}
 
     {% block stylesheets %}
         <link href=\"{{ asset('bundles/corecore/bootstrap-3.3.5-dist/css/bootstrap.min.css') }}\" type=\"text/css\" rel=\"stylesheet\" />
         <link href=\"{{ asset('bundles/corecore/css/core.css') }}\" type=\"text/css\" rel=\"stylesheet\" />
+        <link href=\"{{ asset('bundles/corecore/fancybox-master/dist/jquery.fancybox.min.css') }}\" type=\"text/css\" rel=\"stylesheet\" />
     {% endblock %}
     <link rel=\"icon\" type=\"image/x-icon\" href=\"{{ asset('favicon.ico') }}\" />
 </head>
