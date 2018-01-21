@@ -3,6 +3,7 @@ PHP Server for OS Game
 Back-end for the MMORPG written in PHP Symfony2. For the client, please see http://github.com/ThibautBremand/os
 
 The server that retrieves communications from users. It contains all the communication intelligence, so it eases the development of other clients in other technologies. The new clients will just have to read the messages from the server.
+The server also contains the Admin Panel and few HTML page to administrate accounts. That way, the client will only display the game, so it will be faster to develop other clients.
 
 **Installation :** <br/>
 - Clone the repo at the same depth as the client.
